@@ -1,0 +1,1299 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MD Projects NZ | From plan to reality</title>
+<meta name="description" content="MD Projects NZ: Auckland residential builders. Over 1,000 homes delivered at a fixed price, on time and with complete transparency.">
+<style>
+  /* Concept: "From plan to reality". Dark blueprint bands (plans) alternate with light paper bands (built work).
+     Palette from the MD Projects logo: deep navy, royal blue, sky, plus the site's amber. */
+  :root {
+    color-scheme: light;
+    --ink: #0b0f2a;
+    --ink-2: #121842;
+    --navy: #202448;
+    --blue: #3954a5;
+    --sky: #8ecaee;
+    --amber: #ffb703;
+    --amber-2: #f0a500;
+    --paper: #eef2f7;
+    --white: #ffffff;
+    --line: #d4dce7;
+    --grid: rgba(142, 202, 238, .09);
+    --grid-2: rgba(142, 202, 238, .045);
+    --muted: #5b6479;
+    --muted-dk: rgba(255, 255, 255, .62);
+    --display: "Geist", "Helvetica Neue", Arial, sans-serif;
+    --ui: "Geist", "Helvetica Neue", Arial, sans-serif;
+    --body: "Geist", "Helvetica Neue", Arial, sans-serif;
+    --mono: "Geist Mono", ui-monospace, Menlo, monospace;
+    --wrap: 1320px;
+    --r: 16px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font: 400 17px/1.6 var(--body); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  img, video { display: block; max-width: 100%; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+  p { margin: 0; }
+  h1, h2, h3 { margin: 0; font-family: var(--ui); text-wrap: balance; }
+  .wrap { max-width: var(--wrap); margin: 0 auto; padding-inline: 28px; }
+  .xl { font-family: var(--display); font-weight: 600; letter-spacing: -.055em; line-height: .94; }
+  .xl em, .xl i { font-style: normal; color: var(--blue); }
+  .dark .xl em, .dark .xl i { color: var(--sky); }
+  .h2 { font-size: clamp(2.6rem, 6vw, 5.8rem); }
+  .tag { font: 500 .74rem/1.2 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--blue); display: inline-flex; align-items: center; gap: 10px; }
+  .tag::before { content: ""; width: 8px; height: 8px; background: var(--amber); }
+  .dark { background: var(--ink); color: var(--white); background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px), linear-gradient(var(--grid-2) 1px, transparent 1px), linear-gradient(90deg, var(--grid-2) 1px, transparent 1px); background-size: 120px 120px, 120px 120px, 24px 24px, 24px 24px; }
+  .dark .tag { color: var(--sky); }
+  .lede { font-size: 1.15rem; color: var(--muted); max-width: 52ch; }
+  .dark .lede { color: var(--muted-dk); }
+  section { padding-block: 130px; position: relative; }
+
+  .btn { display: inline-flex; align-items: center; gap: 12px; padding: 17px 28px; border-radius: 100px; font: 600 1rem/1 var(--body); text-decoration: none; border: 1.5px solid transparent; cursor: pointer; transition: background .25s, color .25s, border-color .25s, transform .25s; }
+  .btn svg { transition: transform .25s; }
+  .btn:hover svg { transform: translateX(4px); }
+  .btn-amber { background: var(--amber); color: var(--ink); }
+  .btn-amber:hover { background: var(--white); }
+  .btn-ghost { border-color: rgba(255,255,255,.4); color: var(--white); }
+  .btn-ghost:hover { border-color: var(--white); background: rgba(255,255,255,.08); }
+  .btn-ink { background: var(--ink); color: var(--white); }
+  .btn-ink:hover { background: var(--blue); }
+
+  /* Header */
+  .header { position: fixed; inset: 0 0 auto; z-index: 50; padding-top: env(safe-area-inset-top, 0px); color: var(--white); transition: background .35s, backdrop-filter .35s; }
+  .header.solid { background: rgba(11,15,42,.82); backdrop-filter: blur(14px); }
+  .header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 92px; }
+  .logo { display: block; flex: none; background: var(--white); border-radius: 14px; padding: 6px 14px; }
+  .logo img { height: 56px; width: auto; }
+  .nav { display: flex; align-items: center; gap: 30px; }
+  .nav a { text-decoration: none; font-weight: 500; font-size: .95rem; color: rgba(255,255,255,.82); transition: color .2s; }
+  .nav a:hover { color: var(--amber); }
+  .nav .btn { color: var(--ink); padding: 13px 22px; }
+  .nav .btn:hover { color: var(--ink); }
+  .menu-btn { display: none; background: none; border: 0; color: var(--white); padding: 8px; cursor: pointer; }
+
+  /* Hero: blueprint to reality, scroll-linked */
+  .hero { height: 100vh; min-height: 680px; padding: 0; --p: 0; }
+  .hero-pin { position: relative; height: 100%; overflow: hidden; }
+  .hero-plan { position: absolute; inset: 0; }
+  .bp-svg { position: absolute; right: 2%; bottom: 104px; width: min(50vw, 820px); height: auto; }
+  .bp-l { fill: none; stroke: #cfe8f8; stroke-width: 1.6; stroke-dasharray: 1; stroke-dashoffset: 1; }
+  .go .bp-l { animation: draw 2.4s cubic-bezier(.6,.1,.2,1) forwards; }
+  .bp-thin { stroke-width: 1; stroke: rgba(207,232,248,.6); }
+  .go .bp-thin { animation-delay: .5s; }
+  .bp-ground { stroke: var(--sky); }
+  .go .bp-ground { animation-duration: 1.2s; }
+  .bp-d { fill: none; stroke: var(--amber); stroke-width: 1; stroke-dasharray: 1; stroke-dashoffset: 1; }
+  .go .bp-d { animation: draw 1.4s 1.6s ease forwards; }
+  .bp-t { font: 500 13px var(--mono); fill: var(--amber); letter-spacing: .08em; opacity: 0; }
+  .go .bp-t { animation: fadein .8s 2.2s forwards; }
+  .bp-unit { fill: var(--sky); }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  @keyframes fadein { to { opacity: 1; } }
+  .hero-real { position: absolute; inset: 0; clip-path: inset(0 calc((1 - var(--p)) * 100%) 0 0); }
+  .hero-real video { width: 100%; height: 100%; object-fit: cover; }
+  .hero-real::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(11,15,42,.85), rgba(11,15,42,.2) 70%), linear-gradient(0deg, rgba(11,15,42,.85), transparent 40%); }
+  .scan { position: absolute; top: 0; bottom: 0; left: calc(var(--p) * 100%); width: 2px; background: var(--amber); box-shadow: 0 0 24px 4px rgba(255,183,3,.55); z-index: 3; opacity: calc(min(var(--p) * 30, 1) * min((1 - var(--p)) * 30, 1)); }
+  .scan span { position: absolute; top: 172px; left: 10px; white-space: nowrap; background: var(--amber); color: var(--ink); font: 600 .72rem/1 var(--mono); letter-spacing: .1em; padding: 7px 10px; border-radius: 4px; }
+  .hero-copy { position: absolute; inset: 0; z-index: 4; display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: 150px; pointer-events: none; }
+  .hero-copy .wrap { width: 100%; }
+  .hero-copy a, .hero-copy button { pointer-events: auto; }
+  .hero h1 { font-size: clamp(3.4rem, 9.4vw, 10rem); margin-top: 20px; line-height: .92; font-weight: 700; }
+  .hero h1 .l2 { display: block; color: var(--sky); position: relative; z-index: 1; text-shadow: 0 0 22px var(--ink), 0 0 6px var(--ink); transition: color .6s; }
+  .hero.built h1 .l2 { color: var(--amber); text-shadow: 0 2px 24px rgba(11,15,42,.5); }
+  .hero .lede { color: rgba(255,255,255,.82); margin-top: 26px; max-width: 46ch; }
+  .hero-ctas { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 34px; }
+  .hero-bar { position: absolute; z-index: 4; left: 0; right: 0; bottom: 0; border-top: 1px solid rgba(255,255,255,.14); background: rgba(11,15,42,.55); backdrop-filter: blur(10px); }
+  .hero-bar .wrap { display: grid; grid-template-columns: repeat(4, 1fr) auto; align-items: center; height: 96px; gap: 20px; }
+  .hb b { display: block; font: 800 1.9rem/1 var(--ui);  color: var(--white); font-variant-numeric: tabular-nums; }
+  .hb span { font: 500 .7rem/1.4 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--sky); }
+  .scroll-hint { font: 500 .72rem/1 var(--mono); letter-spacing: .14em; color: var(--white); display: flex; align-items: center; gap: 10px; text-transform: uppercase; }
+  .scroll-hint i { width: 1px; height: 34px; background: linear-gradient(var(--amber), transparent); animation: hint 1.8s infinite; }
+  @keyframes hint { 0% { transform: scaleY(0); transform-origin: top; } 50% { transform: scaleY(1); transform-origin: top; } 51% { transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
+  .replay { position: absolute; z-index: 5; right: 80px; top: 112px; height: 42px; padding: 0 16px; border-radius: 100px; border: 1px solid rgba(255,255,255,.4); background: rgba(11,15,42,.45); color: var(--white); font: 500 .72rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; opacity: 0; pointer-events: none; transition: opacity .5s, background .25s, color .25s; backdrop-filter: blur(6px); }
+  .hero.built .replay { opacity: 1; pointer-events: auto; }
+  .replay:hover { background: var(--amber); color: var(--ink); border-color: var(--amber); }
+  .video-toggle { position: absolute; z-index: 5; right: 28px; top: 112px; width: 42px; height: 42px; border-radius: 50%; border: 1px solid rgba(255,255,255,.4); background: rgba(11,15,42,.45); color: var(--white); display: grid; place-items: center; cursor: pointer; opacity: calc(min(var(--p) * 4, 1)); }
+
+  /* Ticker */
+  .ticker { background: var(--amber); color: var(--ink); overflow: hidden; padding: 22px 0; border-block: 1px solid var(--ink); }
+  .ticker-track { display: flex; width: max-content; animation: tick 40s linear infinite; }
+  .ticker span { font: 800 clamp(1.6rem, 3.4vw, 3rem)/1 var(--ui);  text-transform: uppercase; white-space: nowrap; padding-right: 48px; display: inline-flex; align-items: center; gap: 48px; }
+  .ticker span:nth-child(even) { color: transparent; -webkit-text-stroke: 1.5px var(--ink); }
+  .ticker span::after { content: ""; width: 14px; height: 14px; background: var(--ink); transform: rotate(45deg); }
+  @keyframes tick { to { transform: translateX(-50%); } }
+
+  /* Statement */
+  .statement { background: var(--paper); }
+  .statement p.big { font: 500 clamp(2.1rem, 4.6vw, 4.4rem)/1.06 var(--display); letter-spacing: -.045em; max-width: 22ch; margin-top: 30px; }
+  .w { opacity: .14; transition: opacity .25s; }
+  .w.on { opacity: 1; }
+  .w.hl { color: var(--blue); }
+  .principles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 80px; }
+  .pr { border-top: 2px solid var(--ink); padding-top: 22px; display: flex; flex-direction: column; gap: 10px; }
+  .pr h3 { font: 700 1.35rem/1.2 var(--ui); }
+  .pr p { color: var(--muted); }
+  .pr .k { font: 500 .72rem/1 var(--mono); letter-spacing: .14em; color: var(--blue); text-transform: uppercase; }
+
+  /* Services */
+  .svc-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; flex-wrap: wrap; margin-bottom: 56px; }
+  .svc-list { border-top: 1px solid rgba(255,255,255,.16); }
+  .svc { display: grid; grid-template-columns: 1fr minmax(0, 380px) 56px; gap: 32px; align-items: center; padding: 30px 0; border-bottom: 1px solid rgba(255,255,255,.16); text-decoration: none; position: relative; }
+  .svc h3 { font-size: clamp(2rem, 4.4vw, 4.2rem); transition: color .3s, transform .4s cubic-bezier(.2,.8,.2,1); }
+  .svc p { color: var(--muted-dk); font-size: 1rem; }
+  .svc .arr { width: 56px; height: 56px; border-radius: 50%; border: 1px solid rgba(255,255,255,.3); display: grid; place-items: center; transition: background .3s, border-color .3s, transform .3s; }
+  .svc:hover h3 { color: var(--amber); transform: translateX(16px); }
+  .svc:hover .arr { background: var(--amber); border-color: var(--amber); color: var(--ink); transform: rotate(-45deg); }
+  .svc .thumb { display: none; }
+  .float-img { position: fixed; z-index: 30; left: 0; top: 0; width: 340px; aspect-ratio: 4/3; border-radius: var(--r); overflow: hidden; pointer-events: none; opacity: 0; transform: translate(-50%, -50%) scale(.6) rotate(-4deg); transition: opacity .3s, transform .4s cubic-bezier(.2,.8,.2,1); box-shadow: 0 30px 60px -20px rgba(0,0,0,.6); }
+  .float-img.on { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(-4deg); }
+  .float-img img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* Projects: horizontal pinned scroll */
+  .projects { padding: 0; background: var(--paper); }
+  .proj-pin { height: 100vh; min-height: 640px; overflow: hidden; display: flex; flex-direction: column; justify-content: center; gap: 32px; padding-top: 92px; }
+  .proj-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; }
+  .proj-count { font: 500 .8rem/1 var(--mono); letter-spacing: .12em; color: var(--muted); }
+  .proj-track { display: flex; gap: 28px; padding-left: max(28px, calc((100vw - var(--wrap)) / 2 + 28px)); will-change: transform; }
+  .pcard { flex: none; width: min(64vw, 900px); height: min(58vh, 580px); border-radius: var(--r); overflow: hidden; position: relative; color: var(--white); text-decoration: none; isolation: isolate; }
+  .pcard img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; transition: filter .5s; }
+  .pcard:hover img { filter: brightness(1.12); }
+  .pcard::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(0deg, rgba(11,15,42,.92), rgba(11,15,42,0) 55%); }
+  .pcard-body { position: absolute; left: 32px; right: 32px; bottom: 30px; display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; }
+  .pcard .sub { font: 500 .74rem/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--amber); }
+  .pcard h3 { font-size: clamp(2rem, 4vw, 3.8rem); margin-top: 10px; }
+  .specs { display: flex; gap: 22px; font: 500 .78rem/1.3 var(--mono); color: rgba(255,255,255,.85); flex-wrap: wrap; }
+  .specs div { border-left: 1px solid var(--amber); padding-left: 10px; }
+  .specs b { display: block; font: 700 1.15rem/1.1 var(--ui); color: var(--white); }
+  .pcard.cta { background: var(--ink); display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 24px; padding: 48px; width: min(46vw, 620px); }
+  .pcard.cta::before { display: none; }
+  .pcard.cta h3 { font-size: clamp(2.6rem, 5vw, 4.6rem); }
+  .proj-bar { height: 3px; background: var(--line); border-radius: 3px; overflow: hidden; }
+  .proj-bar span { display: block; height: 100%; width: 0; background: var(--amber); }
+
+  /* Planner (dark blueprint) */
+  .planner-grid { display: grid; grid-template-columns: 1.35fr 1fr; gap: 28px; align-items: start; margin-top: 56px; }
+  .stage { background: rgba(255,255,255,.04); border: 1px solid rgba(142,202,238,.25); border-radius: var(--r); padding: 20px; position: sticky; top: 112px; min-width: 0; }
+  .stage svg { width: 100%; height: auto; display: block; border-radius: 10px; }
+  .stage-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-weight: 600; }
+  .stage-pct { font: 600 .9rem/1 var(--mono); color: var(--amber); font-variant-numeric: tabular-nums; }
+  .stage-bar { height: 4px; background: rgba(255,255,255,.1); border-radius: 4px; margin: 12px 0 16px; overflow: hidden; }
+  .stage-bar span { display: block; height: 100%; width: 0; background: var(--amber); transition: width .6s cubic-bezier(.2,.8,.2,1); }
+  .stage-note { font: 400 .78rem/1.4 var(--mono); color: var(--muted-dk); margin-top: 12px; }
+  .quiz { background: rgba(255,255,255,.04); border: 1px solid rgba(142,202,238,.25); border-radius: var(--r); padding: 28px; min-width: 0; }
+  .q-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .q-top .label { font: 500 .74rem/1 var(--mono); letter-spacing: .14em; color: var(--sky); text-transform: uppercase; }
+  .q-link { background: none; border: 0; color: var(--sky); font: 600 .92rem var(--body); cursor: pointer; padding: 4px 0; }
+  .q-link:hover { color: var(--amber); }
+  .q-link[disabled] { visibility: hidden; }
+  .quiz h3 { font: 700 1.6rem/1.2 var(--ui); margin-bottom: 18px; }
+  .opts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .opt { text-align: left; border: 1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.04); border-radius: 12px; padding: 15px 16px; cursor: pointer; font: 600 1rem/1.3 var(--body); color: var(--white); display: flex; align-items: center; gap: 12px; transition: border-color .2s, background .2s, transform .15s; min-width: 0; }
+  .opt small { display: block; font-weight: 400; color: var(--muted-dk); font-size: .85rem; margin-top: 3px; }
+  .opt:hover { border-color: var(--sky); background: rgba(142,202,238,.08); }
+  .opt:active { transform: scale(.98); }
+  .opt[aria-pressed="true"] { border-color: var(--amber); background: rgba(255,183,3,.12); }
+  .opt .sw { width: 30px; height: 30px; border-radius: 8px; flex: none; border: 1px solid rgba(255,255,255,.25); }
+  .opt svg { flex: none; color: var(--sky); }
+  .answers { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; min-height: 30px; }
+  .answers button { border: 0; background: rgba(255,255,255,.08); color: var(--white); border-radius: 100px; padding: 6px 12px; font: 500 .8rem var(--body); cursor: pointer; }
+  .answers button:hover, .answers button.now { background: var(--amber); color: var(--ink); }
+  .sum { display: grid; grid-template-columns: auto 1fr; gap: 10px 18px; margin: 0 0 6px; }
+  .sum dt { color: var(--muted-dk); font-size: .92rem; }
+  .sum dd { margin: 0; font-weight: 600; }
+  .q-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px; margin-top: 24px; }
+  .L { transform-box: fill-box; }
+  .anim-drop { animation: pDrop .8s cubic-bezier(.2,.8,.2,1) both; }
+  .anim-rise { animation: pRise .9s cubic-bezier(.2,.8,.2,1) both; transform-origin: 50% 100%; }
+  .anim-pop { animation: pPop .6s cubic-bezier(.3,1.4,.5,1) both; transform-origin: 50% 50%; }
+  .anim-fade { animation: pFade .8s ease both; }
+  @keyframes pDrop { from { opacity: 0; transform: translateY(-60px); } to { opacity: 1; transform: none; } }
+  @keyframes pRise { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+  @keyframes pPop { from { opacity: 0; transform: scale(.4); } to { opacity: 1; transform: none; } }
+  @keyframes pFade { from { opacity: 0; } to { opacity: 1; } }
+
+  /* Process timeline */
+  .process { background: var(--white); }
+  .tl { position: relative; margin-top: 70px; }
+  .tl-line { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: var(--line); transform: translateX(-50%); }
+  .tl-line span { display: block; width: 100%; height: 0; background: var(--amber); }
+  .tl-step { display: grid; grid-template-columns: 1fr 120px 1fr; align-items: center; padding: 26px 0; }
+  .tl-step .dot { justify-self: center; width: 64px; height: 64px; border-radius: 50%; background: var(--white); border: 2px solid var(--line); display: grid; place-items: center; font: 600 .85rem/1 var(--mono); color: var(--muted); position: relative; z-index: 1; transition: background .4s, border-color .4s, color .4s, transform .4s; }
+  .tl-step.on .dot { background: var(--amber); border-color: var(--amber); color: var(--ink); transform: scale(1.08); }
+  .tl-card h3 { font: 700 1.6rem/1.15 var(--ui); margin-bottom: 8px; }
+  .tl-card p { color: var(--muted); max-width: 42ch; }
+  .tl-step:nth-child(odd of .tl-step) .tl-card { grid-column: 1; text-align: right; justify-self: end; }
+  .tl-step:nth-child(odd of .tl-step) .tl-card p { margin-left: auto; }
+  .tl-step:nth-child(odd of .tl-step) .dot { grid-column: 2; grid-row: 1; }
+  .tl-step:nth-child(even of .tl-step) .dot { grid-column: 2; }
+  .tl-step:nth-child(even of .tl-step) .tl-card { grid-column: 3; }
+
+  /* Testimonials */
+  .quotes { overflow: hidden; }
+  .q-wrap { display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: end; margin-top: 50px; }
+  .q-slides { position: relative; min-height: 320px; }
+  .q-slide { position: absolute; inset: 0; opacity: 0; transform: translateY(20px); transition: opacity .6s, transform .6s cubic-bezier(.2,.8,.2,1); pointer-events: none; }
+  .q-slide.on { opacity: 1; transform: none; pointer-events: auto; position: relative; }
+  .q-slide blockquote { margin: 0; font: 500 clamp(1.7rem, 3.4vw, 3.1rem)/1.15 var(--display); letter-spacing: -.04em; max-width: 30ch; }
+  .q-slide blockquote::before { content: "“"; display: block; font: 700 8rem/0.6 var(--display); color: var(--amber); margin-bottom: 14px; }
+  .q-who { margin-top: 30px; display: flex; gap: 14px; align-items: center; font: 500 .8rem/1.4 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--sky); }
+  .q-who b { color: var(--white); font: 700 1.1rem/1 var(--ui); letter-spacing: 0; text-transform: none; }
+  .stars { color: var(--amber); letter-spacing: 2px; }
+  .q-nav { display: flex; gap: 10px; align-items: center; }
+  .q-nav button.arrow { width: 56px; height: 56px; border-radius: 50%; border: 1px solid rgba(255,255,255,.3); background: none; color: var(--white); cursor: pointer; display: grid; place-items: center; transition: background .25s, color .25s, border-color .25s; }
+  .q-nav button.arrow:hover { background: var(--amber); color: var(--ink); border-color: var(--amber); }
+  .q-dots { display: flex; gap: 8px; margin-right: 14px; }
+  .q-dots button { width: 28px; height: 4px; border: 0; border-radius: 4px; background: rgba(255,255,255,.25); cursor: pointer; padding: 0; transition: background .3s, width .3s; }
+  .q-dots button.on { background: var(--amber); width: 48px; }
+
+  /* Founder */
+  .founder-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 96px; align-items: center; }
+  .f-photo { position: relative; }
+  .f-photo::before { content: ""; position: absolute; inset: 24px -24px -24px 24px; border: 2px solid var(--amber); border-radius: var(--r); }
+  .f-photo img { position: relative; border-radius: var(--r); aspect-ratio: 4/5; object-fit: cover; object-position: center 30%; width: 100%; }
+  .f-name { position: absolute; left: -20px; bottom: 40px; background: var(--ink); color: var(--white); border-radius: 12px; padding: 18px 22px; z-index: 1; }
+  .f-name small { display: block; font: 500 .7rem/1 var(--mono); letter-spacing: .14em; color: var(--amber); text-transform: uppercase; margin-bottom: 8px; }
+  .f-name b { font: 800 1.4rem/1 var(--ui);  }
+  .f-quote { font: 500 clamp(1.6rem, 2.7vw, 2.3rem)/1.2 var(--display); letter-spacing: -.035em; margin: 26px 0; }
+  .f-list { list-style: none; padding: 0; margin: 28px 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0 28px; }
+  .f-list li { padding: 14px 0; border-top: 1px solid var(--line); font-weight: 600; display: flex; gap: 10px; }
+  .f-list li::before { content: ""; flex: none; width: 8px; height: 8px; margin-top: 8px; background: var(--amber); }
+  .mv { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 30px; }
+  .mv h3 { font: 500 .74rem/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--blue); margin-bottom: 10px; }
+  .mv p { color: var(--muted); font-size: .98rem; }
+
+  /* Gallery */
+  .gallery { background: var(--white); }
+  .g-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 240px; grid-auto-flow: dense; gap: 14px; margin-top: 56px; }
+  .g { margin: 0; border-radius: var(--r); overflow: hidden; position: relative; }
+  .g img { width: 100%; height: 100%; object-fit: cover; transition: filter .6s; }
+  .g:hover img { filter: brightness(1.12) saturate(1.1); }
+  .g-wide { grid-column: span 2; }
+  .g-tall { grid-row: span 2; }
+
+  /* FAQ */
+  .faq-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 80px; }
+  details { border-bottom: 1px solid var(--line); }
+  details:first-of-type { border-top: 1px solid var(--line); }
+  summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: 26px 0; font: 700 1.2rem/1.3 var(--ui); }
+  summary::-webkit-details-marker { display: none; }
+  summary .pm { flex: none; width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line); display: grid; place-items: center; transition: transform .3s, background .3s; }
+  details[open] summary .pm { transform: rotate(45deg); background: var(--amber); border-color: var(--amber); }
+  details p { padding: 0 60px 26px 0; color: var(--muted); }
+
+  /* Closing CTA + contact */
+  .cta-big { font-size: clamp(4.2rem, 15vw, 15rem); line-height: .85; font-weight: 700; }
+  .cta-big em, .dark .cta-big em { font-style: normal; color: var(--amber); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; margin-top: 70px; align-items: start; }
+  .details { list-style: none; padding: 0; margin: 0; }
+  .details li { display: grid; grid-template-columns: 110px 1fr; gap: 16px; padding: 22px 0; border-top: 1px solid rgba(255,255,255,.15); }
+  .details li:last-child { border-bottom: 1px solid rgba(255,255,255,.15); }
+  .details small { font: 500 .72rem/1.9 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--sky); }
+  .details a, .details address, .details .v { font-style: normal; font: 600 1.25rem/1.4 var(--ui); text-decoration: none; }
+  .details a:hover { color: var(--amber); }
+  .form { background: var(--white); color: var(--ink); border-radius: var(--r); padding: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .form h3 { grid-column: 1 / -1; font: 800 1.6rem/1.1 var(--ui);  }
+  .field { display: flex; flex-direction: column; gap: 7px; min-width: 0; }
+  .field.full { grid-column: 1 / -1; }
+  .field label { font-size: .85rem; font-weight: 600; }
+  .field input, .field select, .field textarea { font: inherit; font-size: 1rem; color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 14px; width: 100%; }
+  .field textarea { min-height: 110px; resize: vertical; }
+  .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--blue); background: var(--white); }
+  .form .btn { grid-column: 1 / -1; justify-content: center; border: 0; }
+  .form .btn:hover { background: var(--ink); color: var(--white); }
+  .form-note { grid-column: 1 / -1; font-size: .92rem; color: var(--blue); min-height: 1.4em; }
+
+  footer { background: var(--ink); color: rgba(255,255,255,.6); padding-block: 80px 30px; overflow: hidden; }
+  .foot-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1.2fr; gap: 40px; }
+  .foot-grid img { height: 96px; width: auto; margin-bottom: 18px; }
+  footer h4 { margin: 0 0 16px; font: 500 .72rem/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--sky); }
+  footer ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+  footer a { text-decoration: none; }
+  footer a:hover { color: var(--amber); }
+  .wordmark { display: block; width: max-content; font: 700 10vw/.8 var(--display);  text-transform: uppercase; color: rgba(142,202,238,.16); white-space: nowrap; margin: 70px 0 30px; letter-spacing: -.06em; }
+  .foot-bottom { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: .85rem; border-top: 1px solid rgba(255,255,255,.1); padding-top: 24px; }
+
+  .rv { transition: transform 1s cubic-bezier(.2,.8,.2,1), opacity 1s ease; }
+  .rv.pre { transform: translateY(70px); opacity: 0; }
+  .unveil img { clip-path: inset(0 0 0 0); transition: clip-path 1.3s cubic-bezier(.7,0,.2,1), transform 1.6s cubic-bezier(.2,.8,.2,1); }
+  .unveil.pre img { clip-path: inset(0 0 100% 0); transform: scale(1.15); }
+
+  /* Intro (shown only when the animation library has loaded) */
+  .intro { display: none; position: fixed; inset: 0; z-index: 200; color: var(--white); }
+  .has-intro .intro { display: block; }
+  .intro-half { position: absolute; left: 0; right: 0; height: 50.5%; background: var(--ink); background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size: 120px 120px; }
+  .intro-half.t { top: 0; } .intro-half.b { bottom: 0; }
+  .intro-inner { position: absolute; inset: 0; display: grid; place-items: center; align-content: center; gap: 26px; text-align: center; padding-inline: 24px; }
+  .intro-logo { background: var(--white); border-radius: 16px; padding: 8px 16px; }
+  .intro-logo img { height: 76px; width: auto; }
+  .intro-count { font: 600 clamp(4.6rem, 14vw, 11rem)/.85 var(--display); letter-spacing: -.06em;  font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
+  .intro-count small { font-size: .38em; color: var(--amber); margin-left: .06em; letter-spacing: 0; }
+  .intro-bar { width: min(420px, 70vw); height: 2px; background: rgba(255,255,255,.15); }
+  .intro-bar span { display: block; height: 100%; width: 0; background: var(--amber); }
+  .intro-step { font: 500 .78rem/1 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--sky); min-height: 1em; }
+  /* split text */
+  .ln { display: block; overflow: hidden; padding: .02em .06em .16em 0; margin-bottom: -.16em; }
+  .ln > .li { display: block; }
+  .ch { display: inline-block; will-change: transform; }
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+  .lenis.lenis-stopped { overflow: hidden; }
+  .has-gsap .ticker-track { animation: none; }
+  .has-gsap .w { transition: none; }
+  .pcard img, .g img, .f-photo img { will-change: transform; }
+
+  /* scroll text effects */
+  .wd { display: inline-block; white-space: nowrap; }
+  h2.xl .ln { perspective: 600px; }
+  .bigtext { background: var(--paper); padding: 40px 0 70px; overflow: hidden; }
+  .bt-row { white-space: nowrap; font: 700 clamp(4rem, 11vw, 11rem)/1 var(--display); letter-spacing: -.06em; will-change: transform; }
+  .bt-row span { color: var(--amber); }
+  .bt-row.r2 { color: transparent; -webkit-text-stroke: 1.5px var(--ink); margin-top: .02em; }
+  .bt-row.r2 span { -webkit-text-stroke-color: var(--blue); }
+  .ink .svc h3 { background: linear-gradient(90deg, var(--white) var(--fill, 100%), rgba(255,255,255,.16) var(--fill, 100%)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .ink .svc:hover h3 { -webkit-text-fill-color: var(--amber); }
+  .qw { display: inline-block; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .ticker-track { animation-duration: 120s; }
+    .scroll-hint i { animation: none; }
+  }
+  @media (max-width: 1100px) {
+    .nav { gap: 20px; }
+    .nav a:not(.btn) { font-size: .88rem; }
+    .g-grid { grid-auto-rows: 200px; }
+  }
+  @media (max-width: 960px) {
+    section { padding-block: 90px; }
+    .nav { position: fixed; top: calc(92px + env(safe-area-inset-top, 0px)); left: 0; right: 0; background: var(--ink); flex-direction: column; align-items: stretch; gap: 0; padding: 8px 28px 28px; display: none; }
+    .nav.open { display: flex; }
+    .nav a { padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,.1); font-size: 1.05rem; }
+    .nav .btn { margin-top: 18px; justify-content: center; border-bottom: 0; }
+    .menu-btn { display: block; }
+    .header.menu-open { background: var(--ink); }
+    .bp-svg { width: 118vw; right: -14vw; bottom: auto; top: 110px; opacity: .55; }
+    .hero-bar .wrap { grid-template-columns: repeat(2, 1fr); height: auto; padding-block: 16px; gap: 12px; }
+    .hero-bar .scroll-hint { display: none; }
+    .hero-copy { padding-bottom: 170px; }
+    .principles, .founder-grid, .faq-grid, .contact-grid, .planner-grid { grid-template-columns: 1fr; gap: 48px; }
+    .svc { grid-template-columns: 72px 1fr; gap: 18px; padding: 22px 0; }
+    .svc .thumb { display: block; width: 72px; height: 72px; border-radius: 12px; overflow: hidden; grid-row: span 2; }
+    .svc .thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .svc .arr { display: none; }
+    .svc p { grid-column: 2; font-size: .95rem; }
+    .float-img { display: none; }
+    .projects { height: auto !important; padding-block: 90px; }
+    .proj-pin { position: static; height: auto; }
+    .proj-track { transform: none !important; overflow-x: auto; scroll-snap-type: x mandatory; padding-right: 28px; padding-bottom: 8px; scrollbar-width: none; }
+    .pcard { width: 84vw; height: 66vh; max-height: 560px; scroll-snap-align: center; }
+    .pcard.cta { width: 84vw; }
+    .proj-bar { display: none; }
+    .stage { top: calc(92px + env(safe-area-inset-top, 0px)); z-index: 5; background: var(--ink-2); }
+    .tl-line { left: 31px; }
+    .tl-step { grid-template-columns: 64px 1fr !important; gap: 22px; }
+    .tl-step .dot { grid-column: 1 !important; grid-row: 1; }
+    .tl-step .tl-card { grid-column: 2 !important; text-align: left !important; justify-self: start !important; }
+    .tl-step .tl-card p { margin-left: 0 !important; }
+    .q-wrap { grid-template-columns: 1fr; }
+    .f-photo { max-width: 520px; }
+    .g-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 180px; }
+    .foot-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 560px) {
+    .wrap { padding-inline: 18px; }
+    .header .wrap { height: 78px; }
+    .logo img { height: 46px; }
+    .nav { top: calc(78px + env(safe-area-inset-top, 0px)); }
+    .hb b { font-size: 1.45rem; }
+    .video-toggle { top: 92px; right: 18px; }
+    .opts, .f-list, .mv { grid-template-columns: 1fr; }
+    .quiz { padding: 22px 18px; }
+    .stage { padding: 10px 12px; top: calc(78px + env(safe-area-inset-top, 0px)); }
+    .stage-note { display: none; }
+    .form { grid-template-columns: 1fr; padding: 26px 20px; }
+    .details li { grid-template-columns: 1fr; gap: 4px; }
+    .foot-grid { grid-template-columns: 1fr; }
+    details p { padding-right: 0; }
+    .g-grid { grid-auto-rows: 140px; gap: 10px; }
+    .pcard-body { left: 20px; right: 20px; bottom: 20px; }
+    .f-name { left: 12px; }
+    .f-photo::before { inset: 14px -12px -14px 12px; }
+  }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+</head>
+<body>
+<script>if (window.gsap && window.ScrollTrigger) document.documentElement.classList.add('has-gsap', 'has-intro');</script>
+<div class="intro" id="intro" aria-hidden="true">
+  <div class="intro-half t"></div><div class="intro-half b"></div>
+  <div class="intro-inner" id="introInner">
+    <div class="intro-logo"><img src="images/logo.png" alt=""></div>
+    <div class="intro-count"><span id="introNum">0</span><small>%</small></div>
+    <div class="intro-bar"><span id="introBar"></span></div>
+    <div class="intro-step" id="introStep">Surveying the section</div>
+  </div>
+</div>
+
+<header class="header" id="header">
+  <div class="wrap">
+    <a href="#top" class="logo" aria-label="MD Projects NZ, back to top"><img src="images/logo.png" alt="MD Projects NZ Ltd"></a>
+    <button class="menu-btn" id="menuBtn" aria-label="Menu" aria-expanded="false" aria-controls="nav">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 8h16M4 16h16"/></svg>
+    </button>
+    <nav class="nav" id="nav">
+      <a href="#services">Services</a>
+      <a href="#projects">Projects</a>
+      <a href="#planner">Plan your home</a>
+      <a href="#process">Process</a>
+      <a href="#about">About</a>
+      <a href="#faqs">FAQs</a>
+      <a href="#contact" class="btn btn-amber">Free quote</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- Hero: a blueprint that turns into the real thing as you scroll -->
+  <section class="hero" id="hero">
+    <div class="hero-pin dark">
+      <div class="hero-plan"><svg class="bp-svg" id="bpSvg" viewBox="0 0 900 560" aria-hidden="true">
+  <g class="bp-lines"><path class="bp-l bp-ground" pathLength="1" d="M40 470H860"/><path class="bp-l" pathLength="1" d="M130 220h210v250h-210z"/><path class="bp-l" pathLength="1" d="M120 220L235.0 142L350 220"/><path class="bp-l bp-thin" pathLength="1" d="M130 345h210"/><path class="bp-l" pathLength="1" d="M160 248h56v70h-56z"/><path class="bp-l" pathLength="1" d="M254 248h56v70h-56z"/><path class="bp-l bp-thin" pathLength="1" d="M188 248v70M282 248v70"/><path class="bp-l" pathLength="1" d="M144 388h92v82h-92z"/><path class="bp-l bp-thin" pathLength="1" d="M144 404h92"/><path class="bp-l bp-thin" pathLength="1" d="M144 420h92"/><path class="bp-l bp-thin" pathLength="1" d="M144 436h92"/><path class="bp-l bp-thin" pathLength="1" d="M144 452h92"/><path class="bp-l" pathLength="1" d="M248 386h34v84h-34z"/><path class="bp-l" pathLength="1" d="M292 396h36v46h-36z"/><path class="bp-l bp-thin" pathLength="1" d="M221.0 180h28v18h-28z"/><path class="bp-l" pathLength="1" d="M340 220h210v250h-210z"/><path class="bp-l" pathLength="1" d="M330 220L445.0 142L560 220"/><path class="bp-l bp-thin" pathLength="1" d="M340 345h210"/><path class="bp-l" pathLength="1" d="M370 248h56v70h-56z"/><path class="bp-l" pathLength="1" d="M464 248h56v70h-56z"/><path class="bp-l bp-thin" pathLength="1" d="M398 248v70M492 248v70"/><path class="bp-l" pathLength="1" d="M354 388h92v82h-92z"/><path class="bp-l bp-thin" pathLength="1" d="M354 404h92"/><path class="bp-l bp-thin" pathLength="1" d="M354 420h92"/><path class="bp-l bp-thin" pathLength="1" d="M354 436h92"/><path class="bp-l bp-thin" pathLength="1" d="M354 452h92"/><path class="bp-l" pathLength="1" d="M458 386h34v84h-34z"/><path class="bp-l" pathLength="1" d="M502 396h36v46h-36z"/><path class="bp-l bp-thin" pathLength="1" d="M431.0 180h28v18h-28z"/><path class="bp-l" pathLength="1" d="M550 220h210v250h-210z"/><path class="bp-l" pathLength="1" d="M540 220L655.0 142L770 220"/><path class="bp-l bp-thin" pathLength="1" d="M550 345h210"/><path class="bp-l" pathLength="1" d="M580 248h56v70h-56z"/><path class="bp-l" pathLength="1" d="M674 248h56v70h-56z"/><path class="bp-l bp-thin" pathLength="1" d="M608 248v70M702 248v70"/><path class="bp-l" pathLength="1" d="M564 388h92v82h-92z"/><path class="bp-l bp-thin" pathLength="1" d="M564 404h92"/><path class="bp-l bp-thin" pathLength="1" d="M564 420h92"/><path class="bp-l bp-thin" pathLength="1" d="M564 436h92"/><path class="bp-l bp-thin" pathLength="1" d="M564 452h92"/><path class="bp-l" pathLength="1" d="M668 386h34v84h-34z"/><path class="bp-l" pathLength="1" d="M712 396h36v46h-36z"/><path class="bp-l bp-thin" pathLength="1" d="M641.0 180h28v18h-28z"/></g>
+  <g class="bp-dims"><path class="bp-d" pathLength="1" d="M130 510H760M130 502v16M760 502v16"/><text class="bp-t" x="445.0" y="504" text-anchor="middle">19 800</text><path class="bp-d" pathLength="1" d="M84 220V470M76 220h16M76 470h16"/><text class="bp-t" x="78" y="345.0" text-anchor="middle" transform="rotate(-90 78 345.0)">6 000</text><path class="bp-d" pathLength="1" d="M806 142V470M798 142h16M798 470h16"/><text class="bp-t" x="820" y="306.0" text-anchor="middle" transform="rotate(90 820 306.0)">8 400</text><text class="bp-t bp-unit" x="235.0" y="124" text-anchor="middle">UNIT 01 · 132 m²</text><text class="bp-t bp-unit" x="445.0" y="124" text-anchor="middle">UNIT 02 · 132 m²</text><text class="bp-t bp-unit" x="655.0" y="124" text-anchor="middle">UNIT 03 · 132 m²</text><text class="bp-t" x="130" y="338" >L1</text><text class="bp-t" x="130" y="464">L0</text></g>
+  <g class="bp-stamp" transform="translate(690 40)"><path class="bp-d" pathLength="1" d="M0 0h190v62H0z"/><text class="bp-t" x="12" y="22">MD PROJECTS NZ</text><text class="bp-t" x="12" y="40">FRONT ELEVATION</text><text class="bp-t" x="12" y="56">SCALE 1:100 · DWG A-201</text></g>
+</svg></div>
+      <div class="hero-real">
+        <video id="heroVideo" autoplay muted loop playsinline preload="auto" poster="images/hero.jpg" aria-label="Flyover of completed MD Projects homes in Auckland">
+          <source src="images/hero.webm" type="video/webm">
+          <source src="images/hero.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="scan" aria-hidden="true"><span id="scanLabel">BUILD 0%</span></div>
+      <button class="replay" id="replay" aria-label="Replay the build animation"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M2.5 8a5.5 5.5 0 105.5-5.5H5M5 .5v4h4" transform="translate(0 1)"/></svg>Replay build</button>
+      <button class="video-toggle" id="videoToggle" aria-label="Pause background video"><svg id="vtIcon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><rect x="3" y="2" width="3.5" height="12" rx="1"/><rect x="9.5" y="2" width="3.5" height="12" rx="1"/></svg></button>
+      <div class="hero-copy">
+        <div class="wrap">
+          <span class="tag">MD Projects NZ · Residential builders · Auckland</span>
+          <h1 class="xl"><span class="ln l1">From plan</span><span class="ln l2">to reality.</span></h1>
+          <p class="lede">Expert builders. Proven results. Over 1,000 homes delivered at a fixed price, on time and with complete transparency.</p>
+          <div class="hero-ctas">
+            <a href="#contact" class="btn btn-amber">Get a free quote <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+            <a href="#planner" class="btn btn-ghost">Plan your home</a>
+          </div>
+        </div>
+      </div>
+      <div class="hero-bar">
+        <div class="wrap">
+          <div class="hb"><b data-to="1000" data-fmt="comma+">1,000+</b><span>Successful builds</span></div>
+          <div class="hb"><b data-to="500" data-fmt="+">500+</b><span>Clients</span></div>
+          <div class="hb"><b data-to="100" data-fmt="+">100+</b><span>Trusted contractors</span></div>
+          <div class="hb"><b data-to="10" data-fmt=" yr">10 yr</b><span>Stamford guarantee</span></div>
+          <div class="scroll-hint"><i></i>Scroll</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Where we build -->
+  <div class="ticker" aria-label="Suburbs we have built in">
+    <div class="ticker-track">
+      <span>Sandringham</span><span>Henderson</span><span>Otahuhu</span><span>Point England</span><span>Weymouth</span><span>Papakura</span><span>Papatoetoe</span><span>Manurewa</span><span>Bucklands Beach</span>
+      <span aria-hidden="true">Sandringham</span><span aria-hidden="true">Henderson</span><span aria-hidden="true">Otahuhu</span><span aria-hidden="true">Point England</span><span aria-hidden="true">Weymouth</span><span aria-hidden="true">Papakura</span><span aria-hidden="true">Papatoetoe</span><span aria-hidden="true">Manurewa</span><span aria-hidden="true">Bucklands Beach</span>
+    </div>
+  </div>
+
+  <!-- Statement -->
+  <section class="statement">
+    <div class="wrap">
+      <span class="tag">About MD Projects NZ</span>
+      <p class="big" id="statement">Since March 2020 we've built over 1,000 homes across Auckland. *Fixed* *prices.* *No* *surprises.* Building structures that last a lifetime, from your first sketch to the final code compliance certificate.</p>
+      <div class="principles">
+        <div class="pr"><span class="k">Quality</span><h3>Best build quality at an affordable price</h3><p>High-quality homes and investment properties, delivered within budget.</p></div>
+        <div class="pr"><span class="k">Time</span><h3>We stick to the project plan</h3><p>Typical terrace builds take 7 to 9 months, and you get regular updates throughout.</p></div>
+        <div class="pr"><span class="k">Price</span><h3>Fixed price, no variations</h3><p>We agree on a fixed cost before the build begins, so you can plan with confidence.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Giant scroll-driven text -->
+  <div class="bigtext" aria-hidden="true">
+    <div class="bt-row r1">Fixed price <span>—</span> On time <span>—</span> Built to last <span>—</span> Fixed price <span>—</span> On time <span>—</span></div>
+    <div class="bt-row r2">Design <span>—</span> Consent <span>—</span> Build <span>—</span> Handover <span>—</span> Design <span>—</span> Consent <span>—</span></div>
+  </div>
+
+  <!-- Services -->
+  <section class="dark" id="services">
+    <div class="wrap">
+      <div class="svc-head">
+        <div><span class="tag">Our services</span><h2 class="xl h2" style="margin-top:20px">Concept<br><em>to keys.</em></h2></div>
+        <p class="lede">Our full range of residential construction services takes your project from concept to completion with ease and excellence.</p>
+      </div>
+      <div class="svc-list" id="svcList">
+        <a class="svc" href="https://www.mdprojects.co.nz/services/design-build/" data-img="images/service-design-build.jpg"><span class="thumb"><img src="images/service-design-build.jpg" alt="" loading="lazy"></span><h3 class="xl">Design &amp; Build</h3><p>A complete custom home solution, taking your vision from concept through to final construction.</p><span class="arr"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a>
+        <a class="svc" href="https://www.mdprojects.co.nz/services/" data-img="images/service-build-from-plans.jpg"><span class="thumb"><img src="images/service-build-from-plans.jpg" alt="" loading="lazy"></span><h3 class="xl">Build from Plans</h3><p>Already have approved plans? We'll bring them to life with expert craftsmanship and precision.</p><span class="arr"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a>
+        <a class="svc" href="https://www.mdprojects.co.nz/services/" data-img="images/service-terrace-duplex.jpg"><span class="thumb"><img src="images/service-terrace-duplex.jpg" alt="" loading="lazy"></span><h3 class="xl">Terrace &amp; Duplex</h3><p>Efficient, modern multi-unit housing designed to maximise land use and investment return.</p><span class="arr"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a>
+        <a class="svc" href="https://www.mdprojects.co.nz/services/subdivision/" data-img="images/service-subdivision.jpg"><span class="thumb"><img src="images/service-subdivision.jpg" alt="" loading="lazy"></span><h3 class="xl">Subdivision</h3><p>Land development managed end to end, from planning through to title.</p><span class="arr"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a>
+        <a class="svc" href="https://www.mdprojects.co.nz/services/resource-building-consent/" data-img="images/guide-feasibility.jpg"><span class="thumb"><img src="images/guide-feasibility.jpg" alt="" loading="lazy"></span><h3 class="xl">Consents</h3><p>We take care of all council approvals and compliance to get your project started without delay.</p><span class="arr"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a>
+        <a class="svc" href="https://www.mdprojects.co.nz/services/project-management/" data-img="images/guide-project-management.jpg"><span class="thumb"><img src="images/guide-project-management.jpg" alt="" loading="lazy"></span><h3 class="xl">Project Mgmt</h3><p>Every aspect of your build coordinated for on-time and on-budget delivery.</p><span class="arr"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a>
+      </div>
+    </div>
+    <div class="float-img" id="floatImg" aria-hidden="true"><img alt="" id="floatImgEl"></div>
+  </section>
+
+  <!-- Projects: horizontal scroll -->
+  <section class="projects" id="projects">
+    <div class="proj-pin">
+      <div class="wrap proj-head">
+        <div><span class="tag">Our projects</span><h2 class="xl h2" style="margin-top:20px">Built, not<br><em>rendered.</em></h2></div>
+        <span class="proj-count" id="projCount">01 / 06</span>
+      </div>
+      <div class="proj-track" id="projTrack">
+        <a class="pcard" href="https://www.mdprojects.co.nz/projects/mt-albert-road-sandringham/">
+          <img src="images/project-mt-albert-road.jpg" alt="Mt Albert Road townhouses, Sandringham" loading="lazy">
+          <div class="pcard-body"><div><span class="sub">Sandringham · Terrace</span><h3 class="xl">Mt Albert Rd</h3></div><div class="specs"><div><b>5</b>Homes</div><div><b>4</b>Bed</div><div><b>132 m²</b>Built</div><div><b>153 m²</b>Total</div></div></div>
+        </a>
+        <a class="pcard" href="https://www.mdprojects.co.nz/projects/">
+          <img src="images/tripoli-road-dusk.jpg" alt="Tripoli Road townhouses at dusk, Point England" loading="lazy">
+          <div class="pcard-body"><div><span class="sub">Point England · Townhouses</span><h3 class="xl">Tripoli Rd</h3></div></div>
+        </a>
+        <a class="pcard" href="https://www.mdprojects.co.nz/projects/">
+          <img src="images/project-swanson-road.jpg" alt="Swanson Road townhouses, Henderson" loading="lazy">
+          <div class="pcard-body"><div><span class="sub">Henderson · Townhouses</span><h3 class="xl">Swanson Rd</h3></div></div>
+        </a>
+        <a class="pcard" href="https://www.mdprojects.co.nz/projects/luke-street-otahuhu/">
+          <img src="images/project-luke-street.jpg" alt="Luke Street homes, Otahuhu" loading="lazy">
+          <div class="pcard-body"><div><span class="sub">Otahuhu · Homes</span><h3 class="xl">Luke St</h3></div></div>
+        </a>
+        <a class="pcard" href="https://www.mdprojects.co.nz/projects/">
+          <img src="images/project-weymouth-road.jpg" alt="Weymouth Road duplex, Weymouth" loading="lazy">
+          <div class="pcard-body"><div><span class="sub">Weymouth · Duplex</span><h3 class="xl">Weymouth Rd</h3></div></div>
+        </a>
+        <div class="pcard cta dark">
+          <span class="tag">Next project</span>
+          <h3 class="xl">Yours could<br>be <em>next.</em></h3>
+          <a href="#planner" class="btn btn-amber">Plan your home <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+        </div>
+      </div>
+      <div class="wrap"><div class="proj-bar"><span id="projBar"></span></div></div>
+    </div>
+  </section>
+
+  <!-- Home planner -->
+  <section class="dark" id="planner">
+    <div class="wrap">
+      <div class="svc-head" style="margin-bottom:0">
+        <div><span class="tag">Plan your home</span><h2 class="xl h2" style="margin-top:20px">Watch it<br><em>get built.</em></h2></div>
+        <p class="lede">Answer seven quick questions and see your home go up, from bare section to finished build. Then send it to us for a fixed-price quote.</p>
+      </div>
+      <div class="planner-grid">
+        <div class="stage">
+          <div class="stage-top"><span id="pStatus">Your section is surveyed and ready</span><span class="stage-pct" id="pPct">0%</span></div>
+          <div class="stage-bar"><span id="pBar"></span></div>
+          <svg id="pSvg" viewBox="0 0 800 440" role="img" aria-label="An empty section, ready to build"></svg>
+          <p class="stage-note">Illustration only. We draw up your actual design with you.</p>
+        </div>
+        <div class="quiz">
+          <div class="answers" id="pAnswers" aria-label="Your answers"></div>
+          <div id="pCard" aria-live="polite"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="process" id="process">
+    <div class="wrap">
+      <span class="tag">How it works</span>
+      <h2 class="xl h2" style="margin-top:20px">Six steps.<br><em>One team.</em></h2>
+      <div class="tl" id="tl">
+        <div class="tl-line"><span id="tlFill"></span></div>
+        <div class="tl-step"><div class="tl-card"><h3>Feasibility study</h3><p>Zoning, services, geotechnical conditions and council rules, checked before you commit.</p></div><span class="dot">01</span></div>
+        <div class="tl-step"><span class="dot">02</span><div class="tl-card"><h3>Resource &amp; building consents</h3><p>Applications prepared, lodged and managed with Auckland Council on your behalf.</p></div></div>
+        <div class="tl-step"><div class="tl-card"><h3>Engineering &amp; infrastructure</h3><p>Roads, stormwater, power, water and telecommunications planned with our consultants.</p></div><span class="dot">03</span></div>
+        <div class="tl-step"><span class="dot">04</span><div class="tl-card"><h3>Construction</h3><p>Our network of 100+ trusted contractors builds to plan, managed day to day.</p></div></div>
+        <div class="tl-step"><div class="tl-card"><h3>Compliance &amp; certification</h3><p>Inspections and sign-offs through to your Code Compliance Certificate.</p></div><span class="dot">05</span></div>
+        <div class="tl-step"><span class="dot">06</span><div class="tl-card"><h3>Handover or sale</h3><p>Keys in hand, ready to move in, rent or sell, backed by our guarantees.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="dark quotes">
+    <div class="wrap">
+      <span class="tag">What people are saying</span>
+      <div class="q-wrap">
+        <div class="q-slides" id="qSlides">
+          <figure class="q-slide on" style="margin:0"><blockquote>We were first-time developers and a bit nervous. Maninder and the team guided us through everything, from feasibility to final CCC.</blockquote><figcaption class="q-who"><span class="stars">★★★★★</span><b>Amit P</b>Blockhouse Bay</figcaption></figure>
+          <figure class="q-slide" style="margin:0"><blockquote>What impressed us most was the clear communication and fixed-price contract. No hidden surprises, and the build quality exceeded our expectations.</blockquote><figcaption class="q-who"><span class="stars">★★★★★</span><b>Lisa &amp; James R</b>Weymouth</figcaption></figure>
+          <figure class="q-slide" style="margin:0"><blockquote>MD Projects managed our duplex development with great efficiency. The workmanship, coordination and timely updates made us feel confident every step of the way.</blockquote><figcaption class="q-who"><span class="stars">★★★★★</span><b>Deepak M</b>Flat Bush</figcaption></figure>
+          <figure class="q-slide" style="margin:0"><blockquote>MD Projects turned our vision into reality. The team delivered our dream home on time and within budget.</blockquote><figcaption class="q-who"><span class="stars">★★★★★</span><b>Sarah T</b>Papatoetoe</figcaption></figure>
+        </div>
+        <div class="q-nav">
+          <div class="q-dots" id="qDots"></div>
+          <button class="arrow" id="qPrev" aria-label="Previous testimonial"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 8H3M7 4L3 8l4 4"/></svg></button>
+          <button class="arrow" id="qNext" aria-label="Next testimonial"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Founder -->
+  <section id="about">
+    <div class="wrap founder-grid">
+      <div class="f-photo">
+        <img src="images/team.jpg" alt="The MD Projects team" loading="lazy">
+        <div class="f-name"><small>Founder</small><b>Maninder Singh</b></div>
+      </div>
+      <div>
+        <span class="tag">Meet the founder</span>
+        <h2 class="xl h2" style="margin-top:20px">Your dream is <em>our project.</em></h2>
+        <p class="f-quote">From house renovations to over 1,000 builds, delivered to top-tier quality, within budget and on schedule.</p>
+        <p class="lede">Maninder Singh has years of experience in the construction sector, leading residential projects for large companies and private clients. His passion for construction took him from renovations to full-scale residential builds.</p>
+        <ul class="f-list"><li>Integrity</li><li>Transparency</li><li>Quality craftsmanship</li><li>Client-focused service</li></ul>
+        <div class="mv">
+          <div><h3>Mission</h3><p>To deliver high-quality, affordable homes with precision, efficiency and excellence, ensuring a seamless building experience.</p></div>
+          <div><h3>Vision</h3><p>To be a trusted leader in New Zealand's residential construction industry, transforming ideas into reality.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="gallery" id="gallery">
+    <div class="wrap">
+      <span class="tag">Gallery</span>
+      <h2 class="xl h2" style="margin-top:20px">Inside <em>&amp; out.</em></h2>
+      <div class="g-grid">
+        <figure class="g g-wide"><img src="images/gallery-1.jpg" alt="Row of completed two-storey townhouses" loading="lazy"></figure>
+        <figure class="g"><img src="images/gallery-2.jpg" alt="Kitchen with island bench" loading="lazy"></figure>
+        <figure class="g"><img src="images/gallery-3.jpg" alt="New two-storey home with timber deck" loading="lazy"></figure>
+        <figure class="g g-tall"><img src="images/gallery-4.jpg" alt="Bright open-plan living room" loading="lazy"></figure>
+        <figure class="g g-wide"><img src="images/gallery-5.jpg" alt="Townhouse exterior with dark cladding" loading="lazy"></figure>
+        <figure class="g"><img src="images/gallery-6.jpg" alt="Completed duplex homes" loading="lazy"></figure>
+        <figure class="g"><img src="images/gallery-7.jpg" alt="Living area with timber floors" loading="lazy"></figure>
+        <figure class="g g-wide"><img src="images/gallery-8.jpg" alt="Two-storey home with single garage" loading="lazy"></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section id="faqs">
+    <div class="wrap faq-grid">
+      <div>
+        <span class="tag">FAQs</span>
+        <h2 class="xl h2" style="margin-top:20px">Good<br><em>questions.</em></h2>
+        <p class="lede" style="margin-top:24px">Can't see yours? Call 0210 590 409 or send us a message.</p>
+      </div>
+      <div>
+        <details open><summary>What types of homes do you build?<span class="pm"><svg width="14" height="14" viewBox="0 0 14 14" stroke="currentColor" stroke-width="2"><path d="M7 1v12M1 7h12"/></svg></span></summary><p>Standalone houses, duplexes, terrace homes and full subdivisions, for homeowners and developers across the Auckland region.</p></details>
+        <details><summary>How much will my build cost?<span class="pm"><svg width="14" height="14" viewBox="0 0 14 14" stroke="currentColor" stroke-width="2"><path d="M7 1v12M1 7h12"/></svg></span></summary><p>It depends on the design, location, materials and build complexity, so contact us for a detailed cost proposal. Every contract is fixed-price with no hidden costs.</p></details>
+        <details><summary>How long does a terrace build take?<span class="pm"><svg width="14" height="14" viewBox="0 0 14 14" stroke="currentColor" stroke-width="2"><path d="M7 1v12M1 7h12"/></svg></span></summary><p>Our typical build cycle for terrace houses is 7 to 9 months, depending on the complexity of the project and council approvals.</p></details>
+        <details><summary>Do I need a resource consent?<span class="pm"><svg width="14" height="14" viewBox="0 0 14 14" stroke="currentColor" stroke-width="2"><path d="M7 1v12M1 7h12"/></svg></span></summary><p>You need one when a project doesn't meet the permitted activity standards in Auckland Council's Unitary Plan, for example subdividing into multiple lots, height and boundary changes, land use changes, and stormwater and drainage connections.</p></details>
+        <details><summary>What guarantees come with my home?<span class="pm"><svg width="14" height="14" viewBox="0 0 14 14" stroke="currentColor" stroke-width="2"><path d="M7 1v12M1 7h12"/></svg></span></summary><p>Every home comes with a 10-year Stamford Insurance Guarantee and a 12-month workmanship warranty.</p></details>
+        <details><summary>How much deposit do I need for a development?<span class="pm"><svg width="14" height="14" viewBox="0 0 14 14" stroke="currentColor" stroke-width="2"><path d="M7 1v12M1 7h12"/></svg></span></summary><p>Development finance typically needs at least 25–40% equity, though this varies by lender and project size.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="dark" id="contact">
+    <div class="wrap">
+      <span class="tag">Start your project today</span>
+      <h2 class="xl cta-big" style="margin-top:24px">Let's<br>build<em>.</em></h2>
+      <div class="contact-grid">
+        <div>
+          <p class="lede" style="margin-bottom:32px">Tell us what you're planning. We'll come back to you to talk through feasibility, timelines and a fixed-price proposal.</p>
+          <ul class="details">
+            <li><small>Phone</small><a href="tel:0210590409">0210 590 409</a></li>
+            <li><small>Email</small><a href="mailto:info@mdprojects.co.nz">info@mdprojects.co.nz</a></li>
+            <li><small>Office</small><address>409 Bucklands Beach Road, Bucklands Beach, Auckland 2012</address></li>
+          </ul>
+        </div>
+        <!-- Connect this form to the site's form handler. -->
+        <form class="form" id="contactForm" novalidate>
+          <h3>Get a free quote</h3>
+          <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" autocomplete="name" required></div>
+          <div class="field"><label for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" autocomplete="tel"></div>
+          <div class="field full"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
+          <div class="field full"><label for="f-service">I'm interested in</label>
+            <select id="f-service" name="service">
+              <option>Design &amp; Build</option><option>Build from Plans</option><option>Terrace Homes &amp; Duplexes</option>
+              <option>Subdivision</option><option>Resource &amp; Building Consent</option><option>Project Management</option><option>Something else</option>
+            </select>
+          </div>
+          <div class="field full"><label for="f-msg">About your project</label><textarea id="f-msg" name="message" placeholder="Site address, what you'd like to build, timing…"></textarea></div>
+          <button type="submit" class="btn btn-amber">Send enquiry <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
+          <p class="form-note" id="formNote" role="status"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div><img src="images/logo-white.png" alt="MD Projects NZ Ltd"><p style="max-width:34ch">Quality developments with expert project management, innovative design and a commitment to excellence in every build.</p></div>
+      <div><h4>Services</h4><ul>
+        <li><a href="https://www.mdprojects.co.nz/services/design-build/">Design &amp; Build</a></li>
+        <li><a href="https://www.mdprojects.co.nz/services/subdivision/">Subdivision</a></li>
+        <li><a href="https://www.mdprojects.co.nz/services/resource-building-consent/">Consents</a></li>
+        <li><a href="https://www.mdprojects.co.nz/services/project-management/">Project Management</a></li></ul></div>
+      <div><h4>Company</h4><ul>
+        <li><a href="#about">About</a></li><li><a href="#projects">Projects</a></li><li><a href="#faqs">FAQs</a></li>
+        <li><a href="https://www.facebook.com/p/MD-Projects-NZ-Limited-100063621871436/">Facebook</a></li></ul></div>
+      <div><h4>Contact</h4><ul>
+        <li><a href="tel:0210590409">0210 590 409</a></li>
+        <li><a href="mailto:info@mdprojects.co.nz">info@mdprojects.co.nz</a></li>
+        <li>409 Bucklands Beach Road, Auckland 2012</li></ul></div>
+    </div>
+    <div class="wordmark" aria-hidden="true">MD Projects</div>
+    <div class="foot-bottom"><span>© <span id="year">2026</span> MD Projects NZ Ltd. All rights reserved.</span><span>Auckland, New Zealand</span></div>
+  </div>
+</footer>
+
+<script>
+  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const header = document.getElementById('header');
+
+  // Mobile menu
+  const btn = document.getElementById('menuBtn'), nav = document.getElementById('nav');
+  const setMenu = open => { nav.classList.toggle('open', open); header.classList.toggle('menu-open', open); btn.setAttribute('aria-expanded', open); };
+  btn.addEventListener('click', () => setMenu(!nav.classList.contains('open')));
+  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+
+  // Statement: split into words; *word* marks a highlight
+  const st = document.getElementById('statement');
+  st.innerHTML = st.textContent.trim().split(/\s+/).map(w => w.startsWith('*') ? `<span class="w hl">${w.replace(/\*/g, '')}</span>` : `<span class="w">${w}</span>`).join(' ');
+  const words = [...st.querySelectorAll('.w')];
+
+  const hero = document.getElementById('hero'), scanLabel = document.getElementById('scanLabel');
+  const projSec = document.getElementById('projects'), track = document.getElementById('projTrack'), projBar = document.getElementById('projBar'), projCount = document.getElementById('projCount');
+  const tl = document.getElementById('tl'), tlFill = document.getElementById('tlFill'), tlSteps = [...tl.querySelectorAll('.tl-step')];
+  addEventListener('scroll', () => header.classList.toggle('solid', scrollY > 40), { passive: true });
+
+  // Services: floating photo follows the cursor
+  const fl = document.getElementById('floatImg'), flImg = document.getElementById('floatImgEl');
+  document.querySelectorAll('.svc').forEach(a => {
+    a.addEventListener('mouseenter', () => { flImg.src = a.dataset.img; fl.classList.add('on'); });
+    a.addEventListener('mouseleave', () => fl.classList.remove('on'));
+    a.addEventListener('mousemove', e => { fl.style.left = e.clientX + 'px'; fl.style.top = e.clientY + 'px'; });
+  });
+
+  // Testimonials slider
+  const slides = [...document.querySelectorAll('.q-slide')], dots = document.getElementById('qDots');
+  let qi = 0, qTimer;
+  dots.innerHTML = slides.map((_, i) => `<button aria-label="Testimonial ${i + 1}"></button>`).join('');
+  const dotEls = [...dots.children];
+  const showQ = i => { qi = (i + slides.length) % slides.length; slides.forEach((s, k) => s.classList.toggle('on', k === qi)); dotEls.forEach((d, k) => d.classList.toggle('on', k === qi)); };
+  const autoQ = () => { clearInterval(qTimer); if (!RM) qTimer = setInterval(() => showQ(qi + 1), 7000); };
+  document.getElementById('qPrev').onclick = () => { showQ(qi - 1); autoQ(); };
+  document.getElementById('qNext').onclick = () => { showQ(qi + 1); autoQ(); };
+  dotEls.forEach((d, k) => d.onclick = () => { showQ(k); autoQ(); });
+  showQ(0); autoQ();
+
+  // Hero video controls
+  const vid = document.getElementById('heroVideo'), vt = document.getElementById('videoToggle'), vtIcon = document.getElementById('vtIcon');
+  const PAUSE = '<rect x="3" y="2" width="3.5" height="12" rx="1"/><rect x="9.5" y="2" width="3.5" height="12" rx="1"/>', PLAY = '<path d="M4 2.5v11a1 1 0 001.5.86l9-5.5a1 1 0 000-1.72l-9-5.5A1 1 0 004 2.5z"/>';
+  const syncVt = () => { vtIcon.innerHTML = vid.paused ? PLAY : PAUSE; vt.setAttribute('aria-label', vid.paused ? 'Play background video' : 'Pause background video'); };
+  vt.addEventListener('click', () => { vid.paused ? vid.play() : vid.pause(); });
+  vid.addEventListener('play', syncVt); vid.addEventListener('pause', syncVt);
+  if (RM) { vid.removeAttribute('autoplay'); vid.pause(); syncVt(); }
+
+  // Hero build sequence: the blueprint draws itself, then the build line sweeps across to reveal the real homes
+  const bp = document.getElementById('bpSvg');
+  let buildRaf, buildTimer;
+  function runBuild() {
+    cancelAnimationFrame(buildRaf); clearTimeout(buildTimer);
+    hero.classList.remove('built'); hero.style.setProperty('--p', 0); scanLabel.textContent = 'BUILD 0%';
+    bp.classList.remove('go'); void bp.getBoundingClientRect(); bp.classList.add('go');
+    buildTimer = setTimeout(() => {
+      const t0 = performance.now(), D = 3800;
+      const step = now => {
+        const t = clamp((now - t0) / D), e = t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+        hero.style.setProperty('--p', e.toFixed(4));
+        scanLabel.textContent = 'BUILD ' + Math.round(e * 100) + '%';
+        hero.classList.toggle('built', e > .62);
+        if (t < 1) buildRaf = requestAnimationFrame(step);
+      };
+      buildRaf = requestAnimationFrame(step);
+    }, 2900);
+  }
+  document.getElementById('replay').addEventListener('click', runBuild);
+
+  // Home planner: each answer adds a construction stage to the drawing
+  (() => {
+    const svg = document.getElementById('pSvg');
+    if (!svg) return;
+    const card = document.getElementById('pCard'), answersEl = document.getElementById('pAnswers');
+    const statusEl = document.getElementById('pStatus'), pctEl = document.getElementById('pPct'), barEl = document.getElementById('pBar');
+    const CLAD = { white: '#f3f2ee', dark: '#30353e', mixed: 'linear-gradient(90deg,#f3f2ee 50%,#30353e 50%)', cedar: '#b98250', brick: '#a65b45' };
+    const roofIcon = {
+      gable: '<svg width="30" height="24" viewBox="0 0 30 24"><path d="M2 12L15 2l13 10" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><rect x="6" y="12" width="18" height="10" fill="none" stroke="currentColor" stroke-width="2"/></svg>',
+      mono: '<svg width="30" height="24" viewBox="0 0 30 24"><path d="M2 6l26 6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><path d="M5 6.7V22h20V11.3" fill="none" stroke="currentColor" stroke-width="2"/></svg>',
+      flat: '<svg width="30" height="24" viewBox="0 0 30 24"><path d="M3 8h24" stroke="currentColor" stroke-width="3"/><rect x="5" y="8" width="20" height="14" fill="none" stroke="currentColor" stroke-width="2"/></svg>',
+    };
+    const Q = [
+      { key: 'type', q: 'What are you building?', label: 'Build', status: 'Foundations poured', opts: [['standalone', 'Standalone home', 'One house on its own section'], ['duplex', 'Duplex', 'Two homes sharing a wall'], ['terrace', 'Terrace homes', 'A row of three or more']] },
+      { key: 'storeys', q: 'How many storeys?', label: 'Storeys', status: 'Frame is up', opts: [['1', 'Single storey'], ['2', 'Two storeys']] },
+      { key: 'beds', q: 'How many bedrooms in each home?', label: 'Bedrooms', status: 'Windows going in', opts: [['2', '2 bedrooms'], ['3', '3 bedrooms'], ['4', '4 bedrooms'], ['5', '5 bedrooms']] },
+      { key: 'baths', q: 'How many bathrooms in each home?', label: 'Bathrooms', status: 'Bathrooms roughed in', opts: [['1', '1 bathroom'], ['2', '2 bathrooms'], ['3', '3 bathrooms']] },
+      { key: 'garage', q: 'Do you want a garage?', label: 'Garage', status: 'Garage door fitted', opts: [['none', 'No garage'], ['single', 'Single garage'], ['double', 'Double garage']] },
+      { key: 'clad', q: 'Choose your cladding', label: 'Cladding', status: 'Cladding on', opts: [['white', 'White weatherboard'], ['dark', 'Dark vertical'], ['mixed', 'White and dark'], ['cedar', 'Cedar'], ['brick', 'Brick']] },
+      { key: 'roof', q: 'Pick a roof style', label: 'Roof', status: 'Roof on. Ready for handover', opts: [['gable', 'Gable'], ['mono', 'Mono-pitch'], ['flat', 'Flat with parapet']] },
+    ];
+    const label = (k, v) => { const o = Q.find(x => x.key === k).opts.find(o => o[0] === v); return o ? o[1] : ''; };
+    let s = {}, step = 0, anim = -1, timer;
+
+    const defs = `<defs>
+      <linearGradient id="pSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9eefb"/><stop offset="1" stop-color="#f4fafe"/></linearGradient>
+      <linearGradient id="pGlass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a9d0ec"/><stop offset="1" stop-color="#e3f1fa"/></linearGradient>
+      <pattern id="pFrame" width="16" height="100" patternUnits="userSpaceOnUse"><rect width="16" height="100" fill="#efdcb5"/><rect width="3" height="100" fill="#cfa66a"/><rect y="48" width="16" height="3" fill="#cfa66a"/></pattern>
+      <pattern id="pWhite" width="10" height="8" patternUnits="userSpaceOnUse"><rect width="10" height="8" fill="#f5f4f0"/><path d="M0 7.5h10" stroke="#d8d5cc"/></pattern>
+      <pattern id="pDark" width="9" height="10" patternUnits="userSpaceOnUse"><rect width="9" height="10" fill="#323740"/><path d="M8.5 0v10" stroke="#262a31"/></pattern>
+      <pattern id="pCedar" width="9" height="10" patternUnits="userSpaceOnUse"><rect width="9" height="10" fill="#bb8452"/><path d="M8.5 0v10" stroke="#9b6a3d"/></pattern>
+      <pattern id="pBrick" width="24" height="12" patternUnits="userSpaceOnUse"><rect width="24" height="12" fill="#a95d46"/><path d="M0 .5h24M0 6.5h24M.5 0v6M12.5 6v6" stroke="#e2cfc4" stroke-width="1"/></pattern>
+    </defs>`;
+
+    function layout() {
+      const n = { standalone: 1, duplex: 2, terrace: 3 }[s.type] || 1;
+      const st = +s.storeys || 2;
+      const uw = st === 1 ? [0, 380, 250, 190][n] : [0, 280, 210, 165][n];
+      const G = 382, sh = 100, total = n * uw, x0 = (800 - total) / 2, top = G - st * sh;
+      return { n, st, uw, G, sh, total, x0, top };
+    }
+
+    // place k windows (b big, m small) evenly in [a, b]
+    function windowRow(a, b, y, bigs, smalls) {
+      const items = [];
+      for (let i = 0, bi = 0, si = 0; i < bigs + smalls; i++) {
+        const wantSmall = si < smalls && (bi >= bigs || (i % 3 === 2));
+        if (wantSmall) { items.push('s'); si++; } else { items.push('b'); bi++; }
+      }
+      const slot = (b - a) / Math.max(items.length, 1);
+      return items.map((t, i) => {
+        const w = t === 'b' ? Math.min(38, slot - 10) : Math.min(20, slot - 8);
+        const h = t === 'b' ? 46 : 24;
+        if (w < 8) return '';
+        const x = a + slot * i + (slot - w) / 2;
+        return { t, svg: win(x, y + (t === 's' ? 2 : 0), w, h) };
+      }).filter(Boolean);
+    }
+    const win = (x, y, w, h) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="url(#pGlass)" stroke="#1d2129" stroke-width="3"/><path d="M${x + w / 2} ${y}v${h}" stroke="#1d2129" stroke-width="1.5"/>`;
+
+    function draw() {
+      const L = layout(), { n, st, uw, G, sh, total, x0, top } = L;
+      const layers = [];
+      const add = (i, cls, body) => layers.push(`<g class="L ${anim === i ? cls : ''}">${body}</g>`);
+      let base = `<rect width="800" height="440" fill="url(#pSky)"/>
+        <circle cx="690" cy="70" r="26" fill="#ffd56b" opacity=".9"/>
+        <path d="M0 330 Q160 290 330 322 T800 300 V382 H0z" fill="#d9ead0"/>
+        <rect y="${G}" width="800" height="58" fill="#bcd99f"/><path d="M0 ${G}h800" stroke="#9cc27a" stroke-width="2"/>`;
+      const done = !!s.roof;
+      if (!s.type) {
+        base += `<g class="L anim-fade"><path d="M170 ${G}h460" stroke="#e46d2b" stroke-width="1.5" stroke-dasharray="6 5"/>
+          ${[170, 630].map(x => `<rect x="${x - 3}" y="${G - 26}" width="6" height="30" fill="#c58b3e"/><rect x="${x - 4}" y="${G - 30}" width="8" height="6" fill="#e46d2b"/>`).join('')}
+          <text x="400" y="${G - 40}" text-anchor="middle" font-family="DM Sans, Arial, sans-serif" font-size="16" fill="#3954a5">Your section</text></g>`;
+      }
+      // 0 foundation
+      if (s.type) add(0, 'anim-fade', `<rect x="${x0 - 14}" y="${G - 8}" width="${total + 28}" height="12" fill="#c9c9c3" stroke="#a9a9a2"/>`);
+      // driveway under garages
+      const gw = s.garage === 'double' ? Math.min(112, uw - 76) : s.garage === 'single' ? 66 : 0;
+      if (s.type && s.storeys && gw) {
+        let d = '';
+        for (let u = 0; u < n; u++) { const x = x0 + u * uw + 12; d += `<path d="M${x} ${G + 4}h${gw}l${gw * .15 + 10} 54H${x - gw * .15 - 10}z" fill="#d5d4cf"/>`; }
+        layers.push(`<g class="L ${anim === 4 ? 'anim-fade' : ''}">${d}</g>`);
+      }
+      if (s.storeys) {
+        // 1 frame
+        let f = '';
+        for (let u = 0; u < n; u++) f += `<rect x="${x0 + u * uw}" y="${top}" width="${uw}" height="${st * sh}" fill="url(#pFrame)" stroke="#b8925a" stroke-width="2"/>`;
+        add(1, 'anim-rise', f);
+        // 5 cladding
+        if (s.clad) {
+          let c = '';
+          const P = { white: 'pWhite', dark: 'pDark', cedar: 'pCedar', brick: 'pBrick' };
+          for (let u = 0; u < n; u++) {
+            const x = x0 + u * uw;
+            if (s.clad === 'mixed') {
+              if (st === 2) c += `<rect x="${x}" y="${top}" width="${uw}" height="${sh}" fill="url(#pWhite)"/><rect x="${x}" y="${G - sh}" width="${uw}" height="${sh}" fill="url(#pDark)"/>`;
+              else c += `<rect x="${x}" y="${top}" width="${uw * .45}" height="${sh}" fill="url(#pDark)"/><rect x="${x + uw * .45}" y="${top}" width="${uw * .55}" height="${sh}" fill="url(#pWhite)"/>`;
+            } else c += `<rect x="${x}" y="${top}" width="${uw}" height="${st * sh}" fill="url(#${P[s.clad]})"/>`;
+            c += `<rect x="${x}" y="${top}" width="${uw}" height="${st * sh}" fill="none" stroke="#1d2129" stroke-width="2"/>`;
+          }
+          add(5, 'anim-rise', c);
+        }
+        // 2 bedroom windows + doors, 3 bathroom windows
+        if (s.beds) {
+          let b = '', m = '';
+          const beds = +s.beds, baths = +s.baths || 0;
+          for (let u = 0; u < n; u++) {
+            const x = x0 + u * uw;
+            const doorX = x + 12 + (gw ? gw + 14 : 0);
+            const freeA = doorX + 28 + 14, freeB = x + uw - 12;
+            b += `<rect x="${doorX}" y="${G - 64}" width="28" height="64" fill="#1d2230"/><circle cx="${doorX + 22}" cy="${G - 32}" r="2.5" fill="#ffb703"/><rect x="${doorX - 4}" y="${G - 68}" width="36" height="5" fill="#1d2230"/>`;
+            if (st === 2) {
+              windowRow(x + 10, x + uw - 10, top + 24, Math.min(beds, n === 3 ? 3 : 4), 0).forEach(w => b += w.svg);
+              if (baths) windowRow(x + 10, x + uw - 10, top + 76, 0, 0);
+              if (freeB - freeA > 34) b += win(freeA, G - 78, Math.min(freeB - freeA, 120), 52);
+            } else {
+              windowRow(freeA, freeB, G - 82, Math.min(beds, 3), 0).forEach(w => b += w.svg);
+            }
+            if (baths) {
+              // small frosted windows: upstairs between the eaves line and the bedroom row, or high on the wall for single storey
+              const y = st === 2 ? top + 4 : top + 8, a = st === 2 ? x + 18 : freeA, z = st === 2 ? x + uw - 18 : freeB;
+              const k = Math.min(baths, n === 3 ? 2 : 3), slot = (z - a) / k;
+              for (let i = 0; i < k; i++) { const wx = a + slot * i + slot / 2 - 9; m += `<rect x="${wx}" y="${y}" width="18" height="14" fill="#e8f1f6" stroke="#1d2129" stroke-width="2.5"/>`; }
+            }
+          }
+          add(2, 'anim-pop', b);
+          if (baths) add(3, 'anim-pop', m);
+        }
+        // 4 garage doors
+        if (gw) {
+          let g = '';
+          for (let u = 0; u < n; u++) {
+            const x = x0 + u * uw + 12;
+            g += `<rect x="${x}" y="${G - 66}" width="${gw}" height="66" fill="#3b404a" stroke="#1d2129" stroke-width="2.5"/>`;
+            for (let yy = G - 56; yy < G; yy += 11) g += `<path d="M${x + 3} ${yy}h${gw - 6}" stroke="#4d535e" stroke-width="2"/>`;
+          }
+          add(4, 'anim-rise', g);
+        }
+        // party walls
+        if (n > 1) { let p = ''; for (let u = 1; u < n; u++) p += `<path d="M${x0 + u * uw} ${top - 4}V${G}" stroke="#1d2129" stroke-width="4"/>`; layers.push(`<g>${p}</g>`); }
+        // 6 roof
+        if (s.roof) {
+          let r = '';
+          for (let u = 0; u < n; u++) {
+            const x = x0 + u * uw;
+            if (s.roof === 'gable') r += `<path d="M${x - 10} ${top + 2}L${x + uw / 2} ${top - 64}L${x + uw + 10} ${top + 2}z" fill="#2b2f37"/><path d="M${x + uw / 2 - 16} ${top - 18}h32" stroke="#454b55" stroke-width="2"/>`;
+            if (s.roof === 'mono') r += `<path d="M${x - 10} ${top + 2}V${top - 46}L${x + uw + 10} ${top - 14}V${top + 2}z" fill="#2b2f37"/>`;
+            if (s.roof === 'flat') r += `<rect x="${x - 4}" y="${top - 16}" width="${uw + 8}" height="18" fill="#2b2f37"/><path d="M${x - 4} ${top - 16}h${uw + 8}" stroke="#454b55" stroke-width="3"/>`;
+          }
+          add(6, 'anim-drop', r);
+        } else {
+          // scaffolding while the build is under way
+          let sc = '';
+          const l = x0 - 22, rr = x0 + total + 22;
+          sc += `<path d="M${l} ${G}V${top - 20}M${rr} ${G}V${top - 20}" stroke="#8b96a3" stroke-width="3"/>`;
+          for (let k = 0; k <= st; k++) { const y = G - k * sh; sc += `<path d="M${l - 6} ${y}h12M${rr - 6} ${y}h12" stroke="#8b96a3" stroke-width="3"/><path d="M${l} ${y}L${l + 0} ${y}" />`; }
+          for (let k = 0; k < st; k++) { const y = G - k * sh; sc += `<path d="M${l} ${y}L${l - 0} ${y - sh}" stroke="#8b96a3"/><path d="M${l - 10} ${y}L${l + 10} ${y - sh}M${rr + 10} ${y}L${rr - 10} ${y - sh}" stroke="#a7b0ba" stroke-width="1.5"/>`; }
+          layers.push(`<g class="L">${sc}</g>`);
+        }
+      }
+      // finished: landscaping
+      if (done) {
+        let d = '';
+        for (let u = 0; u < n; u++) { const x = x0 + u * uw, doorX = x + 12 + (gw ? gw + 14 : 0); d += `<path d="M${doorX + 4} ${G + 4}h20l6 54h-32z" fill="#e4e1d8"/><circle cx="${x + uw - 26}" cy="${G - 6}" r="12" fill="#6fa356"/><circle cx="${x + uw - 12}" cy="${G - 4}" r="9" fill="#5b9146"/>`; }
+        d += `<g transform="translate(${x0 - 60} ${G})"><rect x="-3" y="-46" width="6" height="46" fill="#8a6542"/><circle cy="-62" r="26" fill="#5b9146"/><circle cx="-14" cy="-48" r="16" fill="#6fa356"/></g>`;
+        d += `<g transform="translate(${x0 + total + 62} ${G})"><rect x="-3" y="-38" width="6" height="38" fill="#8a6542"/><circle cy="-52" r="22" fill="#6fa356"/></g>`;
+        d += `<g transform="translate(400 34)"><rect x="-96" y="-18" width="192" height="34" rx="17" fill="#202448"/><text y="5" text-anchor="middle" font-family="Plus Jakarta Sans, Arial, sans-serif" font-weight="700" font-size="14" fill="#ffffff">Ready for handover</text></g>`;
+        add(6, 'anim-pop', d);
+      }
+      svg.innerHTML = defs + base + layers.join('');
+      const n2 = Object.keys(s).length;
+      svg.setAttribute('aria-label', n2 ? 'Your home so far: ' + Q.filter(q => s[q.key]).map(q => label(q.key, s[q.key])).join(', ') : 'An empty section, ready to build');
+      const pct = Math.round(n2 / Q.length * 100);
+      pctEl.textContent = pct + '%'; barEl.style.width = pct + '%';
+      const last = [...Q].reverse().find(q => s[q.key]);
+      statusEl.textContent = last ? last.status : 'Your section is surveyed and ready';
+    }
+
+    function renderCard() {
+      answersEl.innerHTML = Q.map((q, i) => s[q.key] ? `<button type="button" data-go="${i}" class="${i === step ? 'now' : ''}">${q.label}: ${label(q.key, s[q.key])}</button>` : '').join('');
+      if (step >= Q.length) {
+        card.innerHTML = `<div class="q-top"><span class="label">Your home</span><button type="button" class="q-link" data-reset>Start over</button></div>
+          <h3>Your home is ready for handover.</h3>
+          <dl class="sum">${Q.map(q => `<dt>${q.label}</dt><dd>${label(q.key, s[q.key])}</dd>`).join('')}</dl>
+          <div class="q-actions"><a href="#contact" class="btn btn-amber" data-quote>Get a fixed-price quote <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a><button type="button" class="q-link" data-go="0">Change answers</button></div>`;
+        return;
+      }
+      const q = Q[step];
+      card.innerHTML = `<div class="q-top"><span class="label">Step ${step + 1} of ${Q.length}</span><button type="button" class="q-link" data-back ${step === 0 ? 'disabled' : ''}>← Back</button></div>
+        <h3>${q.q}</h3>
+        <div class="opts">${q.opts.map(([v, t, sub]) => `<button type="button" class="opt" data-v="${v}" aria-pressed="${s[q.key] === v}">${q.key === 'clad' ? `<span class="sw" style="background:${CLAD[v]}"></span>` : ''}${q.key === 'roof' ? roofIcon[v] : ''}<span>${t}${sub ? `<small>${sub}</small>` : ''}</span></button>`).join('')}</div>`;
+    }
+
+    function update() { draw(); renderCard(); anim = -1; }
+
+    card.addEventListener('click', e => {
+      const opt = e.target.closest('.opt');
+      if (opt) {
+        const q = Q[step];
+        s[q.key] = opt.dataset.v; anim = step;
+        draw(); anim = -1;
+        card.querySelectorAll('.opt').forEach(b => b.setAttribute('aria-pressed', b === opt));
+        clearTimeout(timer);
+        timer = setTimeout(() => { step = Math.min(step + 1, Q.length); while (step < Q.length && s[Q[step].key]) step++; renderCard(); }, 420);
+        answersEl.innerHTML = Q.map((qq, i) => s[qq.key] ? `<button type="button" data-go="${i}">${qq.label}: ${label(qq.key, s[qq.key])}</button>` : '').join('');
+        return;
+      }
+      if (e.target.closest('[data-back]')) { step = Math.max(0, step - 1); renderCard(); return; }
+      if (e.target.closest('[data-reset]')) { s = {}; step = 0; update(); return; }
+      const go = e.target.closest('[data-go]');
+      if (go) { step = +go.dataset.go; renderCard(); return; }
+      if (e.target.closest('[data-quote]')) {
+        const svc = document.getElementById('f-service'), msg = document.getElementById('f-msg');
+        if (svc) svc.value = s.type === 'standalone' ? 'Design & Build' : 'Terrace Homes & Duplexes';
+        if (msg) msg.value = 'My planned build: ' + Q.map(q => `${q.label}: ${label(q.key, s[q.key])}`).join(', ') + '.';
+      }
+    });
+    answersEl.addEventListener('click', e => { const go = e.target.closest('[data-go]'); if (go) { step = +go.dataset.go; renderCard(); } });
+
+    update();
+  })();
+
+
+  // ===== Motion: cinematic intro, smooth scroll and parallax (GSAP + ScrollTrigger + Lenis) =====
+  (() => {
+    const fmt = (n, f) => f === 'comma+' ? n.toLocaleString('en-NZ') + '+' : f === '+' ? n + '+' : n + f;
+    const intro = document.getElementById('intro');
+    if (!(window.gsap && window.ScrollTrigger)) {
+      // No animation library: show everything as is, and still play the hero build.
+      intro && intro.remove(); runBuild(); return;
+    }
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Smooth, weighted scrolling
+    let lenis = null;
+    if (window.Lenis) {
+      lenis = new Lenis({ lerp: 0.085, smoothWheel: true });
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add(t => lenis.raf(t * 1000));
+      gsap.ticker.lagSmoothing(0);
+      document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+        const id = a.getAttribute('href'); const el = id.length > 1 && document.querySelector(id);
+        if (el) { e.preventDefault(); lenis.scrollTo(el, { offset: id === '#top' ? 0 : -70, duration: 1.4 }); }
+      }));
+    }
+
+    // Split helpers
+    const splitChars = el => { el.innerHTML = el.textContent.split('').map(c => c === ' ' ? ' ' : `<span class="ch">${c}</span>`).join(''); return el.querySelectorAll('.ch'); };
+    const splitLines = el => { el.innerHTML = el.innerHTML.split(/<br\s*\/?>/i).map(l => `<span class="ln"><span class="li">${l.trim()}</span></span>`).join(''); return el.querySelectorAll('.li'); };
+
+    const splitDeep = root => {
+      const walk = node => {
+        [...node.childNodes].forEach(n => {
+          if (n.nodeType === 3) {
+            const frag = document.createDocumentFragment();
+            n.textContent.split(/(\s+)/).forEach(part => {
+              if (!part) return;
+              if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(' ')); return; }
+              const w = document.createElement('span'); w.className = 'wd';
+              part.split('').forEach(c => { const s = document.createElement('span'); s.className = 'ch'; s.textContent = c; w.appendChild(s); });
+              frag.appendChild(w);
+            });
+            n.replaceWith(frag);
+          } else if (n.nodeType === 1 && n.tagName !== 'BR') walk(n);
+        });
+      };
+      walk(root); return [...root.querySelectorAll('.ch')];
+    };
+    const rnd = (i, k) => { const x = Math.sin(i * 12.9898 + k * 78.233) * 43758.5453; return x - Math.floor(x); };
+    const h1Chars = [...document.querySelectorAll('.hero h1 .ln')].flatMap(l => [...splitChars(l)]);
+    const heroBits = ['.hero .tag', '.hero .lede', '.hero-ctas'];
+
+    // ---------- Intro ----------
+    const introTl = () => {
+      const num = document.getElementById('introNum'), bar = document.getElementById('introBar'), stepEl = document.getElementById('introStep');
+      const steps = ['Surveying the section', 'Pouring foundations', 'Framing', 'Roofing', 'Handing over the keys'];
+      const c = { v: 0 };
+      lenis && lenis.stop();
+      gsap.set(h1Chars, { yPercent: 115 });
+      gsap.set(heroBits, { y: 40, opacity: 0 });
+      gsap.set('.hero-bar', { yPercent: 100 });
+      gsap.set('.hero-real video', { scale: 1.25 });
+      const t = gsap.timeline({ onComplete: () => { intro.remove(); lenis && lenis.start(); ScrollTrigger.refresh(); } });
+      t.from('#introInner > *', { y: 30, opacity: 0, stagger: .08, duration: .7, ease: 'power3.out' })
+       .to(c, { v: 100, duration: 2.1, ease: 'power2.inOut', onUpdate: () => {
+          const v = Math.round(c.v); num.textContent = v; bar.style.width = v + '%';
+          stepEl.textContent = steps[Math.min(steps.length - 1, Math.floor(v / 21))];
+        } }, '-=.3')
+       .to('#introInner', { opacity: 0, scale: .96, duration: .45, ease: 'power2.in' })
+       .to('.intro-half.t', { yPercent: -100, duration: 1.1, ease: 'expo.inOut' }, '<.2')
+       .to('.intro-half.b', { yPercent: 100, duration: 1.1, ease: 'expo.inOut' }, '<')
+       .add(heroIn(), '<.35');
+      return t;
+    };
+
+    // ---------- Hero entrance ----------
+    function heroIn() {
+      const t = gsap.timeline();
+      t.to('.hero-real video', { scale: 1, duration: 2.4, ease: 'power3.out' }, 0)
+       .to(h1Chars, { yPercent: 0, duration: 1.1, ease: 'power4.out', stagger: .028 }, 0)
+       .to(heroBits, { y: 0, opacity: 1, duration: .9, ease: 'power3.out', stagger: .12 }, .45)
+       .to('.hero-bar', { yPercent: 0, duration: 1, ease: 'power4.out' }, .6)
+       .add(() => {
+          runBuild();
+          document.querySelectorAll('.hb b[data-to]').forEach(b => {
+            const o = { v: 0 }, to = +b.dataset.to, f = b.dataset.fmt;
+            gsap.to(o, { v: to, duration: 2, ease: 'power2.out', onUpdate: () => b.textContent = fmt(Math.round(o.v), f) });
+          });
+        }, .6);
+      return t;
+    }
+
+    // Start the intro only once the page is actually on screen, so it is never missed
+    let started = false;
+    const start = () => { if (started) return; started = true; introTl(); };
+    const vio = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting) && document.visibilityState === 'visible') { vio.disconnect(); (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => setTimeout(start, 150)); } }, { threshold: .4 });
+    vio.observe(hero);
+    document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && !started) setTimeout(start, 150); });
+    setTimeout(() => { if (!started && intro.isConnected) start(); }, 5000);
+    intro.addEventListener('click', () => { gsap.globalTimeline.getChildren(false, true, false).forEach(t => t.progress(1)); });
+
+    // ---------- Hero parallax ----------
+    const heroST = { trigger: hero, start: 'top top', end: 'bottom top', scrub: true };
+    gsap.to('.hero-real', { yPercent: 22, ease: 'none', scrollTrigger: heroST });
+    gsap.to(['.hero .tag', '.hero .lede', '.hero-ctas'], { y: -60, opacity: 0, ease: 'none', stagger: .05, scrollTrigger: { ...heroST, end: '45% top' } });
+    h1Chars.forEach((c, i) => {
+      gsap.to(c, { y: () => -120 - rnd(i, 1) * 320, x: () => (rnd(i, 2) - .5) * 260, rotation: (rnd(i, 3) - .5) * 120, scale: .6 + rnd(i, 4) * .8, opacity: 0, ease: 'none',
+        scrollTrigger: { trigger: hero, start: 'top top', end: '70% top', scrub: .6 } });
+    });
+    gsap.to('.bp-svg', { yPercent: -18, xPercent: 6, ease: 'none', scrollTrigger: heroST });
+    gsap.to('.hero-bar', { opacity: 0, ease: 'none', scrollTrigger: { ...heroST, start: '30% top', end: '70% top' } });
+
+    // ---------- Ticker reacts to scroll speed ----------
+    const tt = document.querySelector('.ticker-track');
+    let tx = 0, vel = 0, skew = 0;
+    ScrollTrigger.create({ trigger: '.ticker', start: 'top bottom', end: 'bottom top', onUpdate: self => { vel = self.getVelocity(); } });
+    gsap.ticker.add(() => {
+      const half = tt.scrollWidth / 2;
+      tx -= 1.1 + Math.min(Math.abs(vel) / 120, 18);
+      if (tx <= -half) tx += half;
+      skew += ((Math.max(-14, Math.min(14, vel / 160))) - skew) * .12;
+      vel *= .92;
+      tt.style.transform = `translate3d(${tx}px,0,0) skewX(${-skew}deg)`;
+    });
+
+    // ---------- Headings rise line by line ----------
+    document.querySelectorAll('h2.xl:not(.cta-big)').forEach(h => {
+      const chars = splitLines(h).length && splitDeep(h);
+      gsap.from(chars, { yPercent: 120, rotationX: -95, opacity: 0, transformOrigin: '50% 100%', duration: 1, ease: 'power4.out', stagger: .022, scrollTrigger: { trigger: h, start: 'top 88%' } });
+    });
+    const GLYPHS = 'ABCDEFGHJKLMNPRSTUVWXYZ0123456789#/+×';
+    const scramble = el => {
+      const final = el.textContent, len = final.length; const o = { p: 0 };
+      gsap.to(o, { p: 1, duration: 1.1, ease: 'none', onUpdate: () => {
+        const done = Math.floor(o.p * len);
+        el.textContent = final.split('').map((c, i) => i < done || c === ' ' || c === '·' ? c : GLYPHS[(Math.random() * GLYPHS.length) | 0]).join('');
+      }, onComplete: () => el.textContent = final });
+    };
+    gsap.utils.toArray('.tag').forEach(el => {
+      if (el.closest('.hero') || el.closest('.intro')) return;
+      ScrollTrigger.create({ trigger: el, start: 'top 92%', once: true, onEnter: () => scramble(el) });
+    });
+    gsap.utils.toArray('.lede').forEach(el => {
+      if (el.closest('.hero')) return;
+      gsap.from(el, { y: 30, opacity: 0, duration: .9, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 92%' } });
+    });
+
+    // ---------- Giant text bands slide in opposite directions ----------
+    gsap.fromTo('.bt-row.r1', { xPercent: 0 }, { xPercent: -38, ease: 'none', scrollTrigger: { trigger: '.bigtext', start: 'top bottom', end: 'bottom top', scrub: .4 } });
+    gsap.fromTo('.bt-row.r2', { xPercent: -38 }, { xPercent: 0, ease: 'none', scrollTrigger: { trigger: '.bigtext', start: 'top bottom', end: 'bottom top', scrub: .4 } });
+
+    // ---------- Statement: words light up as you scroll ----------
+    gsap.fromTo(words, { opacity: .1, filter: 'blur(10px)', y: 18 }, { opacity: 1, filter: 'blur(0px)', y: 0, ease: 'none', stagger: .06, scrollTrigger: { trigger: st, start: 'top 85%', end: 'bottom 42%', scrub: .6 } });
+    gsap.from('.pr', { y: 70, opacity: 0, duration: 1, ease: 'power3.out', stagger: .15, scrollTrigger: { trigger: '.principles', start: 'top 85%' } });
+
+    // ---------- Services rows sweep in ----------
+    gsap.from('.svc', { x: -90, opacity: 0, duration: 1, ease: 'power3.out', stagger: .09, scrollTrigger: { trigger: '#svcList', start: 'top 80%' } });
+    document.documentElement.classList.add('ink');
+    gsap.utils.toArray('.svc h3').forEach(h => {
+      gsap.fromTo(h, { '--fill': '0%' }, { '--fill': '100%', ease: 'none', scrollTrigger: { trigger: h, start: 'top 82%', end: 'top 42%', scrub: .5 } });
+    });
+
+    // ---------- Projects: pinned horizontal scroll with parallax photos (desktop) ----------
+    const mm = gsap.matchMedia();
+    mm.add('(min-width: 961px)', () => {
+      const dist = () => Math.max(0, track.scrollWidth - innerWidth + 80);
+      const n = track.children.length;
+      const tween = gsap.to(track, { x: () => -dist(), ease: 'none', scrollTrigger: {
+        trigger: projSec, start: 'top top', end: () => '+=' + dist(), pin: '.proj-pin', scrub: 1, invalidateOnRefresh: true,
+        onUpdate: self => { projBar.style.width = (self.progress * 100) + '%'; projCount.textContent = String(Math.min(n, 1 + Math.floor(self.progress * n * .999))).padStart(2, '0') + ' / ' + String(n).padStart(2, '0'); }
+      } });
+      track.querySelectorAll('.pcard img').forEach(img => {
+        gsap.fromTo(img, { xPercent: -10, scale: 1.25 }, { xPercent: 10, scale: 1.25, ease: 'none', scrollTrigger: { trigger: img.parentElement, containerAnimation: tween, start: 'left right', end: 'right left', scrub: true } });
+      });
+      track.querySelectorAll('.pcard h3').forEach(h => {
+        gsap.from(h, { xPercent: 30, opacity: 0, ease: 'power2.out', scrollTrigger: { trigger: h.closest('.pcard'), containerAnimation: tween, start: 'left 85%', end: 'left 40%', scrub: true } });
+      });
+    });
+    mm.add('(max-width: 960px)', () => {
+      gsap.from('.pcard', { y: 60, opacity: 0, duration: 1, stagger: .1, ease: 'power3.out', scrollTrigger: { trigger: track, start: 'top 85%' } });
+    });
+
+    // ---------- Planner ----------
+    gsap.from('.stage', { x: -60, opacity: 0, duration: 1.1, ease: 'power3.out', scrollTrigger: { trigger: '.planner-grid', start: 'top 80%' } });
+    gsap.from('.quiz', { x: 60, opacity: 0, duration: 1.1, ease: 'power3.out', scrollTrigger: { trigger: '.planner-grid', start: 'top 80%' } });
+
+    // ---------- Process timeline ----------
+    gsap.fromTo(tlFill, { height: '0%' }, { height: '100%', ease: 'none', scrollTrigger: { trigger: tl, start: 'top 62%', end: 'bottom 62%', scrub: .5 } });
+    tlSteps.forEach((s, i) => {
+      const card = s.querySelector('.tl-card');
+      ScrollTrigger.create({ trigger: s, start: 'top 62%', onEnter: () => s.classList.add('on'), onLeaveBack: () => s.classList.remove('on') });
+      gsap.from(card, { x: innerWidth > 960 ? (i % 2 ? 80 : -80) : 50, opacity: 0, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: s, start: 'top 85%' } });
+    });
+
+    // ---------- Testimonials ----------
+    gsap.from('.q-wrap', { y: 80, opacity: 0, duration: 1.1, ease: 'power3.out', scrollTrigger: { trigger: '.q-wrap', start: 'top 85%' } });
+    document.querySelectorAll('.q-slide blockquote').forEach(bq => { bq.innerHTML = bq.textContent.split(/\s+/).map(w => `<span class="qw">${w}</span>`).join(' '); });
+    const animQuote = () => { const ws = document.querySelectorAll('.q-slide.on .qw'); gsap.fromTo(ws, { opacity: 0, y: 14, filter: 'blur(6px)' }, { opacity: 1, y: 0, filter: 'blur(0px)', duration: .6, stagger: .035, ease: 'power2.out' }); };
+    ScrollTrigger.create({ trigger: '.q-wrap', start: 'top 80%', once: true, onEnter: animQuote });
+    new MutationObserver(animQuote).observe(document.querySelector('.q-slide'), { attributes: true, attributeFilter: ['class'] });
+    document.querySelectorAll('.q-slide').forEach((sl, k) => k && new MutationObserver(() => sl.classList.contains('on') && animQuote()).observe(sl, { attributes: true, attributeFilter: ['class'] }));
+
+    // ---------- Founder: photo wipes open, then drifts ----------
+    gsap.fromTo('.f-photo img', { clipPath: 'inset(100% 0 0 0)', scale: 1.3 }, { clipPath: 'inset(0% 0 0 0)', scale: 1, duration: 1.6, ease: 'power4.inOut', scrollTrigger: { trigger: '.f-photo', start: 'top 78%' } });
+    gsap.to('.f-photo', { yPercent: -8, ease: 'none', scrollTrigger: { trigger: '#about', start: 'top bottom', end: 'bottom top', scrub: true } });
+    gsap.from('.f-name', { x: -40, opacity: 0, duration: 1, delay: .9, ease: 'power3.out', scrollTrigger: { trigger: '.f-photo', start: 'top 78%' } });
+    gsap.from('.f-list li, .mv > div', { y: 30, opacity: 0, duration: .8, stagger: .08, ease: 'power3.out', scrollTrigger: { trigger: '.f-list', start: 'top 88%' } });
+
+    // ---------- Gallery: staggered wipes + parallax inside each frame ----------
+    gsap.fromTo('.g', { clipPath: 'inset(100% 0 0 0)' }, { clipPath: 'inset(0% 0 0 0)', duration: 1.3, ease: 'power4.inOut', stagger: .1, scrollTrigger: { trigger: '.g-grid', start: 'top 82%' } });
+    gsap.utils.toArray('.g img').forEach((img, i) => {
+      gsap.fromTo(img, { yPercent: -10, scale: 1.25 }, { yPercent: 10, scale: 1.25, ease: 'none', scrollTrigger: { trigger: img.parentElement, start: 'top bottom', end: 'bottom top', scrub: true } });
+    });
+
+    // ---------- FAQ, contact, closing ----------
+    gsap.from('details', { y: 40, opacity: 0, duration: .8, stagger: .07, ease: 'power3.out', scrollTrigger: { trigger: '.faq-grid', start: 'top 80%' } });
+    gsap.from('.contact-grid > *', { y: 60, opacity: 0, duration: 1, stagger: .15, ease: 'power3.out', scrollTrigger: { trigger: '.contact-grid', start: 'top 85%' } });
+    const ctaChars = splitDeep(document.querySelector('.cta-big'));
+    const mid = (ctaChars.length - 1) / 2;
+    gsap.fromTo(ctaChars, { x: i => (i - mid) * 110, y: i => (rnd(i, 7) - .5) * 260, opacity: 0, rotation: i => (rnd(i, 8) - .5) * 40 },
+      { x: 0, y: 0, opacity: 1, rotation: 0, ease: 'none', duration: 1, stagger: .04, scrollTrigger: { trigger: '#contact', start: 'top 100%', end: 'top 10%', scrub: .7 } });
+    gsap.from('.cta-big em', { scale: 0, rotate: -90, duration: 1, ease: 'back.out(3)', scrollTrigger: { trigger: '.cta-big', start: 'top 45%' } });
+    const wmChars = splitDeep(document.querySelector('.wordmark'));
+    gsap.fromTo(wmChars, { yPercent: 110, opacity: 0 }, { yPercent: 0, opacity: 1, ease: 'power3.out', stagger: .05, scrollTrigger: { trigger: '.wordmark', start: 'top 100%', end: 'bottom 85%', scrub: .6 } });
+    gsap.from('.foot-grid > *', { y: 40, opacity: 0, duration: .9, stagger: .1, ease: 'power3.out', scrollTrigger: { trigger: '.foot-grid', start: 'top 92%' } });
+
+    addEventListener('load', () => ScrollTrigger.refresh());
+  })();
+
+  // Placeholder submit handler: replace with the site's real form endpoint
+  document.getElementById('contactForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const f = e.target, note = document.getElementById('formNote');
+    if (!f.name.value.trim() || !f.email.value || !f.email.checkValidity()) { note.textContent = 'Add your name and a valid email so we can reply.'; return; }
+    note.textContent = 'Thanks, ' + f.name.value.trim().split(' ')[0] + '. We’ll be in touch shortly.';
+    f.reset();
+  });
+  // Fit the footer wordmark to the container width
+  const wm = document.querySelector('.wordmark');
+  const fitWm = () => { wm.style.fontSize = '100px'; wm.style.fontSize = (100 * wm.parentElement.clientWidth / wm.scrollWidth) + 'px'; };
+  fitWm(); addEventListener('resize', fitWm); document.fonts && document.fonts.ready.then(fitWm);
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
